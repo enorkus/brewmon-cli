@@ -1,4 +1,4 @@
-export class Battery {
+export class RSSI {
     timestamp: number
     name: string
     value: string

@@ -1,4 +1,4 @@
-export class Battery {
+export class Gravity {
     timestamp: number
     name: string
     value: string

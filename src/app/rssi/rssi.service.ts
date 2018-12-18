@@ -4,13 +4,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs'
 
 @Injectable()
-export class BatteryService {
+export class RSSIService {
 
-    private batteryDataByUnitNameURI = '/data/battery?unitName='
+    private rssiDataByUnitNameURI = '/data/rssi?unitName='
 
     constructor(private http: HttpClient) { }
 
     fetchAllByUnitName(unitName: string): Observable<any> {
-        return this.http.get(this.batteryDataByUnitNameURI + unitName)
+        return this.http.get(this.rssiDataByUnitNameURI + unitName)
     }
 }

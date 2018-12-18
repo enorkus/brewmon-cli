@@ -1,4 +1,4 @@
-export class Battery {
+export class Interval {
     timestamp: number
     name: string
     value: string
