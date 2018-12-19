@@ -1,18 +1,6 @@
 <section class="main">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Data</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let battery of batteryData">
-        <th scope="row">{{battery.timestamp}}</th>
-        <td>{{battery.name}}</td>
-        <td>{{battery.value}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div>
+    <canvas id="canvas">{{ batteryChart }}</canvas>
+  </div>
 </section>
-
 <router-outlet></router-outlet>

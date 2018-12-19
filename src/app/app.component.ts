@@ -15,6 +15,7 @@ import { Interval } from './interval/interval'
 import { IntervalService } from './interval/interval.service'
 import { RSSI } from './rssi/rssi'
 import { RSSIService } from './rssi/rssi.service'
+import { Chart } from 'chart.js'
 
 @Component({
   selector: 'app-root',
@@ -25,12 +26,14 @@ import { RSSIService } from './rssi/rssi.service'
 export class AppComponent implements OnInit {
 
   private allUnits: MonitoringUnit[]
-  private batteryData: Battery[]
-  private angleData: Angle[]
-  private temperatureData: Temperature[]
-  private gravityData: Gravity[]
+  private batteryData: Battery
+  private angleData: Angle
+  private temperatureData: Temperature
+  private gravityData: Gravity
   private interval: Interval
-  private rssiData: RSSI[]
+  private rssiData: RSSI
+
+  batteryChart = []
 
   constructor(private monitoringUnitService: MonitoringUnitService, private batteryService: BatteryService, private angleService: AngleService,
     private temperatureService: TemperatureService, private gravityService: GravityService, private intervalService: IntervalService,
@@ -49,7 +52,6 @@ export class AppComponent implements OnInit {
         this.fetchAllRSSIDataByUnitName(firstUnit)
       }))
       .subscribe()
-
   }
 
   fetchAllMonitoringUnits(): Observable<any> {
@@ -57,26 +59,69 @@ export class AppComponent implements OnInit {
   }
 
   fetchAllBatteryDataByUnitName(unitName: string) {
-    this.batteryService.fetchAllByUnitName(unitName).subscribe(batteryData => { this.batteryData = batteryData as Battery[] })
+    this.batteryService.fetchAllByUnitName(unitName).subscribe(batteryData => {
+       this.batteryData = batteryData as Battery
+       this.drawBatteryChart(batteryData.timestamps, batteryData.values) 
+      })
   }
 
   fetchAllAngleDataByUnitName(unitName: string) {
-    this.angleService.fetchAllByUnitName(unitName).subscribe(angleData => { this.angleData = angleData as Angle[] })
+    this.angleService.fetchAllByUnitName(unitName).subscribe(angleData => { 
+      this.angleData = angleData as Angle 
+    })
   }
 
   fetchAllTemperatureDataByUnitName(unitName: string) {
-    this.temperatureService.fetchAllByUnitName(unitName).subscribe(temperatureData => { this.temperatureData = temperatureData as Temperature[] })
+    this.temperatureService.fetchAllByUnitName(unitName).subscribe(temperatureData => { 
+      this.temperatureData = temperatureData as Temperature
+    })
   }
 
   fetchAllGravityDataByUnitName(unitName: string) {
-    this.gravityService.fetchAllByUnitName(unitName).subscribe(gravityData => { this.gravityData = gravityData as Gravity[] })
+    this.gravityService.fetchAllByUnitName(unitName).subscribe(gravityData => {
+       this.gravityData = gravityData as Gravity
+      })
   }
 
   fetchLatestIntervalByUnitName(unitName: string) {
-    this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => { this.interval = interval as Gravity })
+    this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => { 
+      this.interval = interval as Gravity
+    })
   }
 
   fetchAllRSSIDataByUnitName(unitName: string) {
-    this.rssiService.fetchAllByUnitName(unitName).subscribe(rssiData => { this.rssiData = rssiData as RSSI[] })
+    this.rssiService.fetchAllByUnitName(unitName).subscribe(rssiData => { 
+      this.rssiData = rssiData as RSSI
+    })
   }
+
+  drawBatteryChart(timestamps: number[], values: number[]) {
+    this.batteryChart = new Chart('canvas', {
+      type: 'line',
+      data: {
+        labels: timestamps,
+        datasets: [
+          {
+            data: values,
+            borderColor: "#3cba9f",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true
+          }],
+          yAxes: [{
+            display: true
+          }],
+        }
+      }
+    });
+  }
+
 }

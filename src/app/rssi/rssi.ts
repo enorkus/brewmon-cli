@@ -1,11 +1,9 @@
 export class RSSI {
-    timestamp: number
-    name: string
-    value: string
+    timestamps: number[]
+    values: number[]
 
-    constructor(timestamp: number, name: string, value: string) {
-        this.timestamp = timestamp
-        this.name = name
-        this.value = value
+    constructor(timestamps: number[], values: number[]) {
+        this.timestamps = timestamps
+        this.values = values
     }
 }
