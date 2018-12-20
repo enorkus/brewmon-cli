@@ -33,8 +33,6 @@ export class AppComponent implements OnInit {
   private interval: Interval
   private rssiData: RSSI
 
-  batteryChart = []
-
   constructor(private monitoringUnitService: MonitoringUnitService, private batteryService: BatteryService, private angleService: AngleService,
     private temperatureService: TemperatureService, private gravityService: GravityService, private intervalService: IntervalService,
     private rssiService: RSSIService) { }
@@ -61,13 +59,14 @@ export class AppComponent implements OnInit {
   fetchAllBatteryDataByUnitName(unitName: string) {
     this.batteryService.fetchAllByUnitName(unitName).subscribe(batteryData => {
        this.batteryData = batteryData as Battery
-       this.drawBatteryChart(batteryData.timestamps, batteryData.values) 
+       this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values) 
       })
   }
 
   fetchAllAngleDataByUnitName(unitName: string) {
     this.angleService.fetchAllByUnitName(unitName).subscribe(angleData => { 
-      this.angleData = angleData as Angle 
+      this.angleData = angleData as Angle
+      this.drawChartChart("angleChart", angleData.timestamps, angleData.values) 
     })
   }
 
@@ -85,7 +84,7 @@ export class AppComponent implements OnInit {
 
   fetchLatestIntervalByUnitName(unitName: string) {
     this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => { 
-      this.interval = interval as Gravity
+      this.interval = interval as Interval
     })
   }
 
@@ -95,8 +94,8 @@ export class AppComponent implements OnInit {
     })
   }
 
-  drawBatteryChart(timestamps: number[], values: number[]) {
-    this.batteryChart = new Chart('canvas', {
+  drawChartChart(id: string, timestamps: number[], values: number[]): Chart {
+    return new Chart(id, {
       type: 'line',
       data: {
         labels: timestamps,
