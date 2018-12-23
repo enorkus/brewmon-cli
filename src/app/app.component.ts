@@ -33,6 +33,8 @@ export class AppComponent implements OnInit {
   private interval: Interval
   private rssiData: RSSI
 
+  public height: number;
+
   constructor(private monitoringUnitService: MonitoringUnitService, private batteryService: BatteryService, private angleService: AngleService,
     private temperatureService: TemperatureService, private gravityService: GravityService, private intervalService: IntervalService,
     private rssiService: RSSIService) { }
@@ -48,6 +50,8 @@ export class AppComponent implements OnInit {
         this.fetchAllGravityDataByUnitName(firstUnit)
         this.fetchLatestIntervalByUnitName(firstUnit)
         this.fetchAllRSSIDataByUnitName(firstUnit)
+
+        this.height = document.getElementById("temperatureChartContainer").clientHeight * 2
       }))
       .subscribe()
   }
@@ -105,7 +109,9 @@ export class AppComponent implements OnInit {
         datasets: [
           {
             data: values,
-            borderColor: "#3cba9f",
+            borderColor: "#ffce56",
+            borderWidth: 2,
+            pointBorderWidth: 1,
             fill: false
           }
         ]
@@ -121,7 +127,8 @@ export class AppComponent implements OnInit {
             type: 'time',
             ticks: {
               autoSkip: true,
-              maxTicksLimit: 10
+              maxTicksLimit: 10,
+              fontColor: "#848484",
             },
             time: {
               displayFormats: {
@@ -139,7 +146,12 @@ export class AppComponent implements OnInit {
             }
           }],
           yAxes: [{
-            display: true
+            display: true,
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 10,
+              fontColor: "#848484",
+            },
           }],
         }
       }

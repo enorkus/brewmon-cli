@@ -3,8 +3,7 @@
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
-    height: 70%;
-    width: 70%;
+    width: 90%;
 }
 
 .topSection {
@@ -47,19 +46,25 @@
 }
 
 .chartHeader {
-    border-bottom: 1px solid #80808030;;
+    border-bottom: 1px solid #80808030;
     margin: 0 0 10px 0;
     padding: 10px 0 10px 20px;
     font-family: 'Roboto', sans-serif;
     font-size: 12pt;
+    color: #333538
 }
 
 .chartBody {
     padding: 10px 0 10px 10px;
-    min-height: 200px
 }
 
 .chartBodyBig {
-    padding: 10px 0 10px 10px;
-    min-height: 500px
+    padding: 10px 10px 10px 10px;
+}
+
+.header {
+    font-size: 24pt;
+    padding-left: 10px;
+    font-family: 'Roboto', sans-serif;
+    color: #333538
 }
