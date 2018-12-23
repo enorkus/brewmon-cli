@@ -58,20 +58,20 @@ export class AppComponent implements OnInit {
 
   fetchAllBatteryDataByUnitName(unitName: string) {
     this.batteryService.fetchAllByUnitName(unitName).subscribe(batteryData => {
-       this.batteryData = batteryData as Battery
-       this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values)
-      })
+      this.batteryData = batteryData as Battery
+      this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values)
+    })
   }
 
   fetchAllAngleDataByUnitName(unitName: string) {
-    this.angleService.fetchAllByUnitName(unitName).subscribe(angleData => { 
+    this.angleService.fetchAllByUnitName(unitName).subscribe(angleData => {
       this.angleData = angleData as Angle
       this.drawChartChart("angleChart", angleData.timestamps, angleData.values)
     })
   }
 
   fetchAllTemperatureDataByUnitName(unitName: string) {
-    this.temperatureService.fetchAllByUnitName(unitName).subscribe(temperatureData => { 
+    this.temperatureService.fetchAllByUnitName(unitName).subscribe(temperatureData => {
       this.temperatureData = temperatureData as Temperature
       this.drawChartChart("temperatureChart", temperatureData.timestamps, temperatureData.values)
     })
@@ -79,19 +79,19 @@ export class AppComponent implements OnInit {
 
   fetchAllGravityDataByUnitName(unitName: string) {
     this.gravityService.fetchAllByUnitName(unitName).subscribe(gravityData => {
-       this.gravityData = gravityData as Gravity
-       this.drawChartChart("gravityChart", gravityData.timestamps, gravityData.values)
-      })
+      this.gravityData = gravityData as Gravity
+      this.drawChartChart("gravityChart", gravityData.timestamps, gravityData.values)
+    })
   }
 
   fetchLatestIntervalByUnitName(unitName: string) {
-    this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => { 
+    this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => {
       this.interval = interval as Interval
     })
   }
 
   fetchAllRSSIDataByUnitName(unitName: string) {
-    this.rssiService.fetchAllByUnitName(unitName).subscribe(rssiData => { 
+    this.rssiService.fetchAllByUnitName(unitName).subscribe(rssiData => {
       this.rssiData = rssiData as RSSI
       this.drawChartChart("rssiChart", rssiData.timestamps, rssiData.values)
     })
@@ -111,12 +111,32 @@ export class AppComponent implements OnInit {
         ]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         legend: {
           display: false
         },
         scales: {
           xAxes: [{
-            display: false
+            type: 'time',
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 10
+            },
+            time: {
+              displayFormats: {
+                'millisecond': 'MMM DD',
+                'second': 'MMM DD',
+                'minute': 'MMM DD',
+                'hour': 'MMM DD',
+                'day': 'MMM DD',
+                'week': 'MMM DD',
+                'month': 'MMM DD',
+                'quarter': 'MMM DD',
+                'year': 'MMM DD',
+              },
+              tooltipFormat: 'YYYY/MM/DD HH:mm'
+            }
           }],
           yAxes: [{
             display: true
