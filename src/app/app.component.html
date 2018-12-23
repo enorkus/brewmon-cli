@@ -1,12 +1,64 @@
 <section class="main">
-  <div>
-    <canvas id="batteryChart"></canvas>
-  </div>
-</section>
+  <div class="topSection">
+    <div class="topSectionStart">
+      <section class="chartSection">
+        <div class="chartHeader">
+          Temperature
+        </div>
+        <div class="chartBody">
+          <canvas id="temperatureChart"></canvas>
+        </div>
+      </section>
 
-<section class="main">
-  <div>
-    <canvas id="angleChart"></canvas>
+      <section class="chartSection">
+        <div class="chartHeader">
+          Battery
+        </div>
+        <div class="chartBody">
+          <canvas id="batteryChart"></canvas>
+        </div>
+      </section>
+    </div>
+    <div class="topSectionEnd">
+      <section class="chartSection">
+        <div class="chartHeader">
+          Gravity
+        </div>
+        <div class="chartBody">
+          <canvas id="gravityChart"></canvas>
+        </div>
+      </section>
+    </div>
   </div>
+
+  <div class="bottomSection">
+    <section class="chartSection">
+      <div class="chartHeader">
+        Interval
+      </div>
+      <div class="chartBody">
+        AAAAAAAAAAAAAAAA
+      </div>
+    </section>
+
+    <section class="chartSection">
+      <div class="chartHeader">
+        RSSI
+      </div>
+      <div class="chartBody">
+        <canvas id="rssiChart"></canvas>
+      </div>
+    </section>
+
+    <section class="chartSection">
+      <div class="chartHeader">
+        Angle
+      </div>
+      <div class="chartBody">
+        <canvas id="angleChart"></canvas>
+      </div>
+    </section>
+  </div>
+
 </section>
 <router-outlet></router-outlet>

@@ -21,7 +21,7 @@ import { Chart } from 'chart.js'
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [BatteryService, MonitoringUnitService, AngleService, TemperatureService, GravityService, IntervalService, RSSIService]
+  providers: [BatteryService, MonitoringUnitService, AngleService, TemperatureService, GravityService, IntervalService, RSSIService],
 })
 export class AppComponent implements OnInit {
 
@@ -59,26 +59,28 @@ export class AppComponent implements OnInit {
   fetchAllBatteryDataByUnitName(unitName: string) {
     this.batteryService.fetchAllByUnitName(unitName).subscribe(batteryData => {
        this.batteryData = batteryData as Battery
-       this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values) 
+       this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values)
       })
   }
 
   fetchAllAngleDataByUnitName(unitName: string) {
     this.angleService.fetchAllByUnitName(unitName).subscribe(angleData => { 
       this.angleData = angleData as Angle
-      this.drawChartChart("angleChart", angleData.timestamps, angleData.values) 
+      this.drawChartChart("angleChart", angleData.timestamps, angleData.values)
     })
   }
 
   fetchAllTemperatureDataByUnitName(unitName: string) {
     this.temperatureService.fetchAllByUnitName(unitName).subscribe(temperatureData => { 
       this.temperatureData = temperatureData as Temperature
+      this.drawChartChart("temperatureChart", temperatureData.timestamps, temperatureData.values)
     })
   }
 
   fetchAllGravityDataByUnitName(unitName: string) {
     this.gravityService.fetchAllByUnitName(unitName).subscribe(gravityData => {
        this.gravityData = gravityData as Gravity
+       this.drawChartChart("gravityChart", gravityData.timestamps, gravityData.values)
       })
   }
 
@@ -91,6 +93,7 @@ export class AppComponent implements OnInit {
   fetchAllRSSIDataByUnitName(unitName: string) {
     this.rssiService.fetchAllByUnitName(unitName).subscribe(rssiData => { 
       this.rssiData = rssiData as RSSI
+      this.drawChartChart("rssiChart", rssiData.timestamps, rssiData.values)
     })
   }
 
@@ -113,7 +116,7 @@ export class AppComponent implements OnInit {
         },
         scales: {
           xAxes: [{
-            display: true
+            display: false
           }],
           yAxes: [{
             display: true
