@@ -20,7 +20,8 @@
       <section class="chartSection">
         <div class="chartHeader">
           <img class="chartIcon" src="../assets/temperatureIcon.png" />
-          Temperature
+          <div>Temperature</div>
+          <div class="chartHeaderLastValue">{{angleData && angleData.values[0]}}</div>
         </div>
         <div id="temperatureChartContainer" class="chartBody">
           <canvas id="temperatureChart"></canvas>
@@ -31,7 +32,8 @@
       <section class="chartSection">
         <div class="chartHeader">
           <img class="chartIcon" src="../assets/gravityIcon.png" />
-          Gravity
+          <div>Gravity</div>
+          <div class="chartHeaderLastValue">{{gravityData && gravityData.values[0]}}</div>
         </div>
         <div class="chartBodyBig" [style.width.px]="width" [style.height.px]="height">
           <canvas id="gravityChart"></canvas>
@@ -44,7 +46,8 @@
     <section class="chartSection">
       <div class="chartHeader">
         <img class="chartIcon" src="../assets/batteryIcon.png" />
-        Battery
+        <div>Battery</div>
+        <div class="chartHeaderLastValue">{{batteryData && batteryData.values[0]}}</div>
       </div>
       <div class="chartBody">
         <canvas id="batteryChart"></canvas>
@@ -54,7 +57,8 @@
     <section class="chartSection">
       <div class="chartHeader">
         <img class="chartIcon" src="../assets/wifiIcon.png" />
-        RSSI
+        <div>RSSI</div>
+        <div class="chartHeaderLastValue">{{rssiData && rssiData.values[0]}}</div>
       </div>
       <div class="chartBody">
         <canvas id="rssiChart"></canvas>
@@ -64,7 +68,8 @@
     <section class="chartSection">
       <div class="chartHeader">
         <img class="chartIcon" src="../assets/angleIcon.png" />
-        Angle
+        <div>Angle</div>
+        <div class="chartHeaderLastValue">{{angleData && angleData.values[0]}}</div>
       </div>
       <div class="chartBody">
         <canvas id="angleChart"></canvas>

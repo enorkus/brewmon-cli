@@ -75,3 +75,12 @@
     height: 24px;
     padding-right: 5px;
 }
+
+.chartHeaderLastValue {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    padding-right: 20px;
+    font-family: 'Roboto';
+    font-weight: 600;
+}
