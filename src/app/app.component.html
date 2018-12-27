@@ -4,24 +4,45 @@
   </div>
   <div class="topSection">
     <div class="topSectionStart">
-      <section class="chartSection">
+      <section id="generalInfoContainer" class="chartSection">
         <div class="chartHeader">
           <img class="chartIcon" src="../assets/generalIcon.png" />
-          Details
+          <div>Details</div>
+          <div class="chartHeaderLastValue" style="color: green">ON</div>
+          <div class="chartHeaderLastValue" style="color: gray">OFF</div>
         </div>
-        <div class="chartBody">
-          ON: true
-          ABV: 5.014%
-          Started: 2018-12-04
-          In Fermentation: 24 days
-          Update interval: 10 min.
+        <div class="chartBody generalInfo">
+          <div class="generalInfoRow">
+            <div class="generalInfoCell">
+              <div>Alcohol by volume</div>
+              <div class="generalInfoValue">5.014%</div>
+            </div>
+            <div class="generalInfoCell">
+              <div>In Fermentation</div>
+              <div class="generalInfoValue">24 days</div>
+            </div>
+          </div>
+          <div class="generalInfoRow">
+            <div class="generalInfoCell">
+              <div>Update interval</div>
+              <div class="generalInfoValue">10 mins</div>
+            </div>
+            <div class="generalInfoCell">
+              <div>Last update</div>
+              <div class="generalInfoValue">5 mins ago</div>
+            </div>
+            <div class="generalInfoCell">
+                <div>WiFi signal</div>
+                <div class="generalInfoValue">Good</div>
+              </div>
+          </div>
         </div>
       </section>
       <section class="chartSection">
         <div class="chartHeader">
           <img class="chartIcon" src="../assets/temperatureIcon.png" />
           <div>Temperature</div>
-          <div class="chartHeaderLastValue">{{angleData && angleData.values[0]}}</div>
+          <div class="chartHeaderLastValue">{{angleData && angleData.values[0]}} °C</div>
         </div>
         <div id="temperatureChartContainer" class="chartBody">
           <canvas id="temperatureChart"></canvas>
@@ -47,7 +68,7 @@
       <div class="chartHeader">
         <img class="chartIcon" src="../assets/batteryIcon.png" />
         <div>Battery</div>
-        <div class="chartHeaderLastValue">{{batteryData && batteryData.values[0]}}</div>
+        <div class="chartHeaderLastValue">{{batteryData && batteryData.values[0]}} V</div>
       </div>
       <div class="chartBody">
         <canvas id="batteryChart"></canvas>
@@ -58,7 +79,7 @@
       <div class="chartHeader">
         <img class="chartIcon" src="../assets/wifiIcon.png" />
         <div>RSSI</div>
-        <div class="chartHeaderLastValue">{{rssiData && rssiData.values[0]}}</div>
+        <div class="chartHeaderLastValue">-{{rssiData && rssiData.values[0]}} dBm</div>
       </div>
       <div class="chartBody">
         <canvas id="rssiChart"></canvas>
@@ -69,7 +90,7 @@
       <div class="chartHeader">
         <img class="chartIcon" src="../assets/angleIcon.png" />
         <div>Angle</div>
-        <div class="chartHeaderLastValue">{{angleData && angleData.values[0]}}</div>
+        <div class="chartHeaderLastValue">{{angleData && angleData.values[0]}}°</div>
       </div>
       <div class="chartBody">
         <canvas id="angleChart"></canvas>

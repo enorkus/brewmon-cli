@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
         this.fetchLatestIntervalByUnitName(firstUnit)
         this.fetchAllRSSIDataByUnitName(firstUnit)
 
-        this.height = document.getElementById("temperatureChartContainer").clientHeight * 2
+        this.height = document.getElementById("temperatureChartContainer").clientHeight + document.getElementById("generalInfoContainer").clientHeight
       }))
       .subscribe()
   }
