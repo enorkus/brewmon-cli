@@ -35,7 +35,8 @@ export class AppComponent implements OnInit {
 
   private alcoholByVolume: number
   private daysInFermentation: number
-  private updateInterval: number
+  private updateIntervalMins: number
+  private lastUpdatedMins: number
 
   public height: number;
 
@@ -96,8 +97,8 @@ export class AppComponent implements OnInit {
 
   fetchLatestIntervalByUnitName(unitName: string) {
     this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => {
-      this.updateInterval = interval.value / 60
-      this.interval = interval as Interval
+      this.updateIntervalMins = this.round(interval.value / 60, 1)
+      this.lastUpdatedMins = this.round((Date.now() - interval.timestamp) / (24 * 60 * 60 * 1000), 0)
     })
   }
 
@@ -110,12 +111,16 @@ export class AppComponent implements OnInit {
 
   calculateAlcoholByVolume(originalGravity: number, finalGravity: number): number {
     var alcoholByVolume = (originalGravity - finalGravity) * 131.25
-    var multiplier = Math.pow(10, 2 || 0);
-    return Math.round(alcoholByVolume * multiplier) / multiplier;
+    return this.round(alcoholByVolume, 2)
   }
 
   calculateDaysInFermentation(startTimestamp: number, lastTimestamp: number): number {
-    return Math.floor((lastTimestamp - startTimestamp) / (24 * 60 * 60 * 1000));
+    return this.round((lastTimestamp - startTimestamp) / (24 * 60 * 60 * 1000), 0)
+  }
+
+  round(value: number, decimals: number): number {
+    var multiplier = Math.pow(10, decimals || 0);
+    return Math.round(value * multiplier) / multiplier;
   }
 
   drawChartChart(id: string, timestamps: number[], values: number[]): Chart {
