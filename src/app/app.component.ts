@@ -33,6 +33,8 @@ export class AppComponent implements OnInit {
   private interval: Interval
   private rssiData: RSSI
 
+  private alcoholByVolume: number
+
   public height: number;
 
   constructor(private monitoringUnitService: MonitoringUnitService, private batteryService: BatteryService, private angleService: AngleService,
@@ -84,6 +86,7 @@ export class AppComponent implements OnInit {
   fetchAllGravityDataByUnitName(unitName: string) {
     this.gravityService.fetchAllByUnitName(unitName).subscribe(gravityData => {
       this.gravityData = gravityData as Gravity
+      this.alcoholByVolume = this.calculateAlcoholByVolume(gravityData.values[gravityData.values.length - 1], gravityData.values[0])
       this.drawChartChart("gravityChart", gravityData.timestamps, gravityData.values)
     })
   }
@@ -99,6 +102,12 @@ export class AppComponent implements OnInit {
       this.rssiData = rssiData as RSSI
       this.drawChartChart("rssiChart", rssiData.timestamps, rssiData.values)
     })
+  }
+
+  calculateAlcoholByVolume(originalGravity: number, finalGravity: number): number {
+    var alcoholByVolume = (originalGravity - finalGravity) * 131.25
+    var multiplier = Math.pow(10, 2 || 0);
+    return Math.round(alcoholByVolume * multiplier) / multiplier;
   }
 
   drawChartChart(id: string, timestamps: number[], values: number[]): Chart {
