@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
   private daysInFermentation: number
   private updateIntervalMins: number
   private lastUpdatedMins: number
+  private wifiSignalStrengthStatus: string
 
   public height: number;
 
@@ -105,8 +106,20 @@ export class AppComponent implements OnInit {
   fetchAllRSSIDataByUnitName(unitName: string) {
     this.rssiService.fetchAllByUnitName(unitName).subscribe(rssiData => {
       this.rssiData = rssiData as RSSI
+      this.wifiSignalStrengthStatus = this.resolveWifiSignalStrengthStatus(rssiData.values[0])
       this.drawChartChart("rssiChart", rssiData.timestamps, rssiData.values)
     })
+  }
+
+  resolveWifiSignalStrengthStatus(lastRSSIValue: number): string {
+    if(lastRSSIValue < 70) {
+      return 'Very Good'
+    } else if(lastRSSIValue < 80) {
+      return "Good"
+    } else if (lastRSSIValue < 90) {
+      return 'Poor'
+    }
+    return 'Unusable'   
   }
 
   calculateAlcoholByVolume(originalGravity: number, finalGravity: number): number {
