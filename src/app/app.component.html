@@ -8,8 +8,8 @@
         <div class="chartHeader">
           <img class="chartIcon" src="../assets/generalIcon.png" />
           <div>Details</div>
-          <div class="chartHeaderLastValue" style="color: green">ON</div>
-          <div class="chartHeaderLastValue" style="color: gray">OFF</div>
+          <div [hidden]="isUnitOn" class="chartHeaderLastValue" style="color: green">ON</div>
+          <div [hidden]="!isUnitOn" class="chartHeaderLastValue" style="color: gray">OFF</div>
         </div>
         <div class="chartBody generalInfo">
           <div class="generalInfoRow">
