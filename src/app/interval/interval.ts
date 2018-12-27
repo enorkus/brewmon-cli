@@ -1,9 +1,9 @@
 export class Interval {
-    timestamps: number[]
-    values: number[]
+    timestamp: number[]
+    value: number[]
 
-    constructor(timestamps: number[], values: number[]) {
-        this.timestamps = timestamps
-        this.values = values
+    constructor(timestamp: number[], value: number[]) {
+        this.timestamp = timestamp
+        this.value = value
     }
 }

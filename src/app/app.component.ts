@@ -35,6 +35,7 @@ export class AppComponent implements OnInit {
 
   private alcoholByVolume: number
   private daysInFermentation: number
+  private updateInterval: number
 
   public height: number;
 
@@ -95,6 +96,7 @@ export class AppComponent implements OnInit {
 
   fetchLatestIntervalByUnitName(unitName: string) {
     this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => {
+      this.updateInterval = interval.value / 60
       this.interval = interval as Interval
     })
   }
@@ -114,7 +116,6 @@ export class AppComponent implements OnInit {
 
   calculateDaysInFermentation(startTimestamp: number, lastTimestamp: number): number {
     return Math.floor((lastTimestamp - startTimestamp) / (24 * 60 * 60 * 1000));
-    // return lastTimestamp - startTimestamp
   }
 
   drawChartChart(id: string, timestamps: number[], values: number[]): Chart {
