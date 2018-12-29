@@ -25,20 +25,20 @@ import { Chart } from 'chart.js'
 })
 export class AppComponent implements OnInit {
 
-  private allUnits: MonitoringUnit[]
-  private batteryData: Battery
-  private angleData: Angle
-  private temperatureData: Temperature
-  private gravityData: Gravity
-  private interval: Interval
-  private rssiData: RSSI
+  public allUnits: MonitoringUnit[]
+  public batteryData: Battery
+  public angleData: Angle
+  public temperatureData: Temperature
+  public gravityData: Gravity
+  public interval: Interval
+  public rssiData: RSSI
 
-  private alcoholByVolume: number
-  private daysInFermentation: number
-  private updateIntervalMins: number
-  private lastUpdatedMins: number
-  private wifiSignalStrengthStatus: string
-  private isUnitOn: boolean
+  public alcoholByVolume: number
+  public daysInFermentation: number
+  public updateIntervalMins: number
+  public lastUpdatedMins: number
+  public wifiSignalStrengthStatus: string
+  public isUnitOn: boolean
 
   public height: number;
 
