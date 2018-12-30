@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
   public interval: Interval
   public rssiData: RSSI
 
+  public brewName: string
   public alcoholByVolume: number
   public daysInFermentation: number
   public updateIntervalMins: number
@@ -50,13 +51,13 @@ export class AppComponent implements OnInit {
     this.fetchAllMonitoringUnits()
       .pipe(map(allUnits => {
         this.allUnits = allUnits as MonitoringUnit[]
-        var firstUnit = allUnits[0].name
-        this.fetchAllBatteryDataByUnitName(firstUnit)
-        this.fetchAllAngleDataByUnitName(firstUnit)
-        this.fetchAllTemperatureDataByUnitName(firstUnit)
-        this.fetchAllGravityDataByUnitName(firstUnit)
-        this.fetchLatestIntervalByUnitName(firstUnit)
-        this.fetchAllRSSIDataByUnitName(firstUnit)
+        this.brewName = allUnits[0].name
+        this.fetchAllBatteryDataByUnitName(this.brewName)
+        this.fetchAllAngleDataByUnitName(this.brewName)
+        this.fetchAllTemperatureDataByUnitName(this.brewName)
+        this.fetchAllGravityDataByUnitName(this.brewName)
+        this.fetchLatestIntervalByUnitName(this.brewName)
+        this.fetchAllRSSIDataByUnitName(this.brewName)
 
         this.height = document.getElementById("temperatureChartContainer").clientHeight + document.getElementById("generalInfoContainer").clientHeight
       }))
