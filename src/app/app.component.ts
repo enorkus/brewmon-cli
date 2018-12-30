@@ -41,6 +41,12 @@ export class AppComponent implements OnInit {
   public wifiSignalStrengthStatus: string
   public isUnitOn: boolean
 
+  public lastTemperature: number
+  public lastGravity: number
+  public lastBattery: number
+  public lastRSSI: number
+  public lastAngle: number
+
   public height: number;
 
   constructor(private monitoringUnitService: MonitoringUnitService, private batteryService: BatteryService, private angleService: AngleService,
@@ -71,6 +77,7 @@ export class AppComponent implements OnInit {
   fetchAllBatteryDataByUnitName(unitName: string) {
     this.batteryService.fetchAllByUnitName(unitName).subscribe(batteryData => {
       this.batteryData = batteryData as Battery
+      this.lastBattery = this.round(batteryData.values[batteryData.values.length - 1], 2)
       this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values)
     })
   }
@@ -78,6 +85,7 @@ export class AppComponent implements OnInit {
   fetchAllAngleDataByUnitName(unitName: string) {
     this.angleService.fetchAllByUnitName(unitName).subscribe(angleData => {
       this.angleData = angleData as Angle
+      this.lastAngle = this.round(angleData.values[angleData.values.length - 1], 2)
       this.drawChartChart("angleChart", angleData.timestamps, angleData.values)
     })
   }
@@ -85,6 +93,7 @@ export class AppComponent implements OnInit {
   fetchAllTemperatureDataByUnitName(unitName: string) {
     this.temperatureService.fetchAllByUnitName(unitName).subscribe(temperatureData => {
       this.temperatureData = temperatureData as Temperature
+      this.lastTemperature = this.round(temperatureData.values[temperatureData.values.length - 1], 2)
       this.drawChartChart("temperatureChart", temperatureData.timestamps, temperatureData.values)
     })
   }
@@ -94,6 +103,7 @@ export class AppComponent implements OnInit {
       this.gravityData = gravityData as Gravity
       this.alcoholByVolume = this.calculateAlcoholByVolume(gravityData.values[0], gravityData.values[gravityData.values.length - 1])
       this.daysInFermentation = this.calculateDaysInFermentation(gravityData.timestamps[0], gravityData.timestamps[gravityData.timestamps.length - 1])
+      this.lastGravity = this.round(gravityData.values[gravityData.values.length - 1], 4)
       this.drawChartChart("gravityChart", gravityData.timestamps, gravityData.values)
     })
   }
@@ -110,6 +120,7 @@ export class AppComponent implements OnInit {
     this.rssiService.fetchAllByUnitName(unitName).subscribe(rssiData => {
       this.rssiData = rssiData as RSSI
       this.wifiSignalStrengthStatus = this.resolveWifiSignalStrengthStatus(rssiData.values[0])
+      this.lastRSSI = rssiData.values[rssiData.values.length - 1]
       this.drawChartChart("rssiChart", rssiData.timestamps, rssiData.values)
     })
   }
