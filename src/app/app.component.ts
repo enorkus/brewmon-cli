@@ -127,7 +127,7 @@ export class AppComponent implements OnInit {
 
   resolveWifiSignalStrengthStatus(lastRSSIValue: number): string {
     if(lastRSSIValue < 70) {
-      return 'Very Good'
+      return 'Excellent'
     } else if(lastRSSIValue < 80) {
       return "Good"
     } else if (lastRSSIValue < 90) {
