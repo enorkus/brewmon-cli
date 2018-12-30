@@ -92,8 +92,8 @@ export class AppComponent implements OnInit {
   fetchAllGravityDataByUnitName(unitName: string) {
     this.gravityService.fetchAllByUnitName(unitName).subscribe(gravityData => {
       this.gravityData = gravityData as Gravity
-      this.alcoholByVolume = this.calculateAlcoholByVolume(gravityData.values[gravityData.values.length - 1], gravityData.values[0])
-      this.daysInFermentation = this.calculateDaysInFermentation(gravityData.timestamps[gravityData.timestamps.length - 1], gravityData.timestamps[0])
+      this.alcoholByVolume = this.calculateAlcoholByVolume(gravityData.values[0], gravityData.values[gravityData.values.length - 1])
+      this.daysInFermentation = this.calculateDaysInFermentation(gravityData.timestamps[0], gravityData.timestamps[gravityData.timestamps.length - 1])
       this.drawChartChart("gravityChart", gravityData.timestamps, gravityData.values)
     })
   }
