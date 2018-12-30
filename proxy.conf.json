@@ -1,6 +1,0 @@
-{
-    "/data": {
-        "target": "${BREWMON_SRV_APP_URL}",
-        "secure": true
-    }
-}
