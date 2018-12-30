@@ -42,7 +42,7 @@
         <div class="chartHeader">
           <img class="chartIcon" src="../assets/temperatureIcon.png" />
           <div>Temperature</div>
-          <div class="chartHeaderLastValue">{{temperatureData && temperatureData.values[0]}} °C</div>
+          <div class="chartHeaderLastValue">{{temperatureData && temperatureData.values[temperatureData.values.length - 1]}} °C</div>
         </div>
         <div id="temperatureChartContainer" class="chartBody">
           <canvas id="temperatureChart"></canvas>
@@ -54,7 +54,7 @@
         <div class="chartHeader">
           <img class="chartIcon" src="../assets/gravityIcon.png" />
           <div>Gravity</div>
-          <div class="chartHeaderLastValue">{{gravityData && gravityData.values[0]}}</div>
+          <div class="chartHeaderLastValue">{{gravityData && gravityData.values[gravityData.values.length - 1]}}</div>
         </div>
         <div class="chartBodyBig" [style.height.px]="height">
           <canvas id="gravityChart"></canvas>
@@ -68,7 +68,7 @@
       <div class="chartHeader">
         <img class="chartIcon" src="../assets/batteryIcon.png" />
         <div>Battery</div>
-        <div class="chartHeaderLastValue">{{batteryData && batteryData.values[0]}} V</div>
+        <div class="chartHeaderLastValue">{{batteryData && batteryData.values[batteryData.values.length - 1]}} V</div>
       </div>
       <div class="chartBody">
         <canvas id="batteryChart"></canvas>
@@ -79,7 +79,7 @@
       <div class="chartHeader">
         <img class="chartIcon" src="../assets/wifiIcon.png" />
         <div>RSSI</div>
-        <div class="chartHeaderLastValue">-{{rssiData && rssiData.values[0]}} dBm</div>
+        <div class="chartHeaderLastValue">-{{rssiData && rssiData.values[rssiData.values.length - 1]}} dBm</div>
       </div>
       <div class="chartBody">
         <canvas id="rssiChart"></canvas>
@@ -90,7 +90,7 @@
       <div class="chartHeader">
         <img class="chartIcon" src="../assets/angleIcon.png" />
         <div>Angle</div>
-        <div class="chartHeaderLastValue">{{angleData && angleData.values[0]}}°</div>
+        <div class="chartHeaderLastValue">{{angleData && angleData.values[angleData.values.length - 1]}}°</div>
       </div>
       <div class="chartBody">
         <canvas id="angleChart"></canvas>
