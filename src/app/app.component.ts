@@ -101,7 +101,7 @@ export class AppComponent implements OnInit {
   fetchLatestIntervalByUnitName(unitName: string) {
     this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => {
       this.updateIntervalMins = this.round(interval.value / 60, 1)
-      this.lastUpdatedMins = this.round((Date.now() - interval.timestamp) / (24 * 60 * 60 * 1000), 0)
+      this.lastUpdatedMins = this.round((Date.now() - interval.timestamp) / (60 * 1000), 0)
       this.isUnitOn = this.lastUpdatedMins - this.updateIntervalMins > 0
     })
   }
