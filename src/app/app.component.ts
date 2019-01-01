@@ -151,6 +151,8 @@ export class AppComponent implements OnInit {
   }
 
   drawChartChart(id: string, timestamps: number[], values: number[]): Chart {
+    var chartColor = '#ffce56'
+    var fontColor = "#848484"
     return new Chart(id, {
       type: 'line',
       data: {
@@ -158,9 +160,11 @@ export class AppComponent implements OnInit {
         datasets: [
           {
             data: values,
-            borderColor: "#ffce56",
+            borderColor: chartColor,
             borderWidth: 2,
             pointRadius: 0,
+            pointHoverBackgroundColor: chartColor,
+            pointHoverBorderColor: chartColor,
             fill: false
           }
         ]
@@ -177,7 +181,7 @@ export class AppComponent implements OnInit {
             ticks: {
               autoSkip: true,
               maxTicksLimit: 10,
-              fontColor: "#848484",
+              fontColor: fontColor,
             },
             time: {
               displayFormats: {
@@ -199,7 +203,7 @@ export class AppComponent implements OnInit {
             ticks: {
               autoSkip: true,
               maxTicksLimit: 10,
-              fontColor: "#848484",
+              fontColor: fontColor,
             },
           }],
         }
