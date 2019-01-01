@@ -160,7 +160,7 @@ export class AppComponent implements OnInit {
             data: values,
             borderColor: "#ffce56",
             borderWidth: 2,
-            pointBorderWidth: 1,
+            pointRadius: 0,
             fill: false
           }
         ]
