@@ -78,6 +78,7 @@ export class AppComponent implements OnInit {
     this.batteryService.fetchAllByUnitName(unitName).subscribe(batteryData => {
       this.batteryData = batteryData as Battery
       this.lastBattery = this.round(batteryData.values[batteryData.values.length - 1], 2)
+      this.lastUpdatedMins = this.round((Date.now() - batteryData.timestamps[batteryData.timestamps.length - 1]) / (60 * 1000), 0)
       this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values)
     })
   }
@@ -111,7 +112,6 @@ export class AppComponent implements OnInit {
   fetchLatestIntervalByUnitName(unitName: string) {
     this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => {
       this.updateIntervalMins = this.round(interval.value / 60, 1)
-      this.lastUpdatedMins = this.round((Date.now() - interval.timestamp) / (60 * 1000), 0)
       this.isUnitOn = this.lastUpdatedMins - this.updateIntervalMins > 0
     })
   }
