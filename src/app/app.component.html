@@ -15,25 +15,30 @@
           <div class="generalInfoRow">
             <div class="generalInfoCell">
               <div>Alcohol by volume</div>
-              <div class="generalInfoValue">{{alcoholByVolume}}%</div>
+              <div [hidden]="alcoholByVolumeLoading" class="generalInfoValue">{{alcoholByVolume}}%</div>
+              <div [hidden]="!alcoholByVolumeLoading" class="loader_small"><div></div><div></div><div></div><div></div></div>
             </div>
             <div class="generalInfoCell">
               <div>In fermentation</div>
-              <div class="generalInfoValue">{{daysInFermentation > 0 ? daysInFermentation : 1}} {{daysInFermentation > 1 ? 'days' : 'day'}}</div>
+              <div [hidden]="daysInFermentationLoading" class="generalInfoValue">{{daysInFermentation > 0 ? daysInFermentation : 1}} {{daysInFermentation > 1 ? 'days' : 'day'}}</div>
+              <div [hidden]="!daysInFermentationLoading" class="loader_small"><div></div><div></div><div></div><div></div></div>
             </div>
           </div>
           <div class="generalInfoRow">
             <div class="generalInfoCell">
               <div>Update interval</div>
-              <div class="generalInfoValue">{{updateIntervalMins}} mins</div>
+              <div [hidden]="updateIntervalMinsLoading" class="generalInfoValue">{{updateIntervalMins}} mins</div>
+              <div [hidden]="!updateIntervalMinsLoading" class="loader_small"><div></div><div></div><div></div><div></div></div>
             </div>
             <div class="generalInfoCell">
               <div>Last update</div>
-              <div class="generalInfoValue">{{lastUpdatedMins}} {{lastUpdatedMins > 1 ? 'mins' : 'min'}} ago</div>
+              <div [hidden]="lastUpdatedMinsLoading" class="generalInfoValue">{{lastUpdatedMins}} {{lastUpdatedMins > 1 ? 'mins' : 'min'}} ago</div>
+              <div [hidden]="!lastUpdatedMinsLoading" class="loader_small"><div></div><div></div><div></div><div></div></div>
             </div>
             <div class="generalInfoCell">
                 <div>WiFi signal</div>
-                <div class="generalInfoValue">{{wifiSignalStrengthStatus}}</div>
+                <div [hidden]="wifiSignalStrengthStatusLoading" class="generalInfoValue">{{wifiSignalStrengthStatus}}</div>
+                <div [hidden]="!wifiSignalStrengthStatusLoading" class="loader_small"><div></div><div></div><div></div><div></div></div>
               </div>
           </div>
         </div>

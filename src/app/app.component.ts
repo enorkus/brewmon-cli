@@ -47,6 +47,12 @@ export class AppComponent implements OnInit {
   public lastRSSI: number
   public lastAngle: number
 
+  public alcoholByVolumeLoading: boolean = true
+  public daysInFermentationLoading: boolean = true
+  public updateIntervalMinsLoading: boolean = true
+  public lastUpdatedMinsLoading: boolean = true
+  public wifiSignalStrengthStatusLoading: boolean = true
+
   public height: number;
 
   constructor(private monitoringUnitService: MonitoringUnitService, private batteryService: BatteryService, private angleService: AngleService,
@@ -55,35 +61,42 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.fetchAllMonitoringUnits()
-      .pipe(map(allUnits => {
+      .subscribe(allUnits => {
         this.allUnits = allUnits as MonitoringUnit[]
         this.brewName = allUnits[0].name
-        this.fetchAllBatteryDataByUnitName(this.brewName)
-        this.fetchAllAngleDataByUnitName(this.brewName)
-        this.fetchAllTemperatureDataByUnitName(this.brewName)
-        this.fetchAllGravityDataByUnitName(this.brewName)
-        this.fetchLatestIntervalByUnitName(this.brewName)
-        this.fetchAllRSSIDataByUnitName(this.brewName)
-
-        this.height = document.getElementById("temperatureChartContainer").clientHeight + document.getElementById("generalInfoContainer").clientHeight
-      }))
-      .subscribe()
+      },
+        error => console.log('Error'),
+        () => {
+          this.populateAllChartsAndDataFields(this.brewName)
+          this.height = document.getElementById("temperatureChartContainer").clientHeight + document.getElementById("generalInfoContainer").clientHeight
+        }
+      )
   }
 
   fetchAllMonitoringUnits(): Observable<any> {
     return this.monitoringUnitService.fetchAll()
   }
 
-  fetchAllBatteryDataByUnitName(unitName: string) {
+  populateAllChartsAndDataFields(brewName: string) {
+    this.loadBatteryData(this.brewName)
+    this.loadAngleData(this.brewName)
+    this.loadTemperatureData(this.brewName)
+    this.loadGravityData(this.brewName)
+    this.loadIntervalData(this.brewName)
+    this.loadRSSIData(this.brewName)
+  }
+
+  loadBatteryData(unitName: string) {
     this.batteryService.fetchAllByUnitName(unitName).subscribe(batteryData => {
       this.batteryData = batteryData as Battery
       this.lastBattery = this.round(batteryData.values[batteryData.values.length - 1], 2)
       this.lastUpdatedMins = this.round((Date.now() - batteryData.timestamps[batteryData.timestamps.length - 1]) / (60 * 1000), 0)
       this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values)
+      this.lastUpdatedMinsLoading = false
     })
   }
 
-  fetchAllAngleDataByUnitName(unitName: string) {
+  loadAngleData(unitName: string) {
     this.angleService.fetchAllByUnitName(unitName).subscribe(angleData => {
       this.angleData = angleData as Angle
       this.lastAngle = this.round(angleData.values[angleData.values.length - 1], 2)
@@ -91,7 +104,7 @@ export class AppComponent implements OnInit {
     })
   }
 
-  fetchAllTemperatureDataByUnitName(unitName: string) {
+  loadTemperatureData(unitName: string) {
     this.temperatureService.fetchAllByUnitName(unitName).subscribe(temperatureData => {
       this.temperatureData = temperatureData as Temperature
       this.lastTemperature = this.round(temperatureData.values[temperatureData.values.length - 1], 2)
@@ -99,41 +112,50 @@ export class AppComponent implements OnInit {
     })
   }
 
-  fetchAllGravityDataByUnitName(unitName: string) {
+  loadGravityData(unitName: string) {
     this.gravityService.fetchAllByUnitName(unitName).subscribe(gravityData => {
       this.gravityData = gravityData as Gravity
+      
       this.alcoholByVolume = this.calculateAlcoholByVolume(gravityData.values[0], gravityData.values[gravityData.values.length - 1])
+      this.alcoholByVolumeLoading = false
+
       this.daysInFermentation = this.calculateDaysInFermentation(gravityData.timestamps[0], gravityData.timestamps[gravityData.timestamps.length - 1])
+      this.daysInFermentationLoading = false
+
       this.lastGravity = this.round(gravityData.values[gravityData.values.length - 1], 4)
       this.drawChartChart("gravityChart", gravityData.timestamps, gravityData.values)
     })
   }
 
-  fetchLatestIntervalByUnitName(unitName: string) {
+  loadIntervalData(unitName: string) {
     this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => {
       this.updateIntervalMins = this.round(interval.value / 60, 1)
+      this.updateIntervalMinsLoading = false
+
       this.isUnitOn = this.lastUpdatedMins - this.updateIntervalMins > 0
     })
   }
 
-  fetchAllRSSIDataByUnitName(unitName: string) {
+  loadRSSIData(unitName: string) {
     this.rssiService.fetchAllByUnitName(unitName).subscribe(rssiData => {
       this.rssiData = rssiData as RSSI
       this.wifiSignalStrengthStatus = this.resolveWifiSignalStrengthStatus(rssiData.values[0])
+      this.wifiSignalStrengthStatusLoading = false
+
       this.lastRSSI = rssiData.values[rssiData.values.length - 1]
       this.drawChartChart("rssiChart", rssiData.timestamps, rssiData.values)
     })
   }
 
   resolveWifiSignalStrengthStatus(lastRSSIValue: number): string {
-    if(lastRSSIValue < 70) {
+    if (lastRSSIValue < 70) {
       return 'Excellent'
-    } else if(lastRSSIValue < 80) {
+    } else if (lastRSSIValue < 80) {
       return "Good"
     } else if (lastRSSIValue < 90) {
       return 'Poor'
     }
-    return 'Unusable'   
+    return 'Unusable'
   }
 
   calculateAlcoholByVolume(originalGravity: number, finalGravity: number): number {
