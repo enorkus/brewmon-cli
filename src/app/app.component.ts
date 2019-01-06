@@ -47,13 +47,21 @@ export class AppComponent implements OnInit {
   public lastRSSI: number
   public lastAngle: number
 
-  public alcoholByVolumeLoading: boolean = true
-  public daysInFermentationLoading: boolean = true
-  public updateIntervalMinsLoading: boolean = true
-  public lastUpdatedMinsLoading: boolean = true
-  public wifiSignalStrengthStatusLoading: boolean = true
+  public alcoholByVolumeLoading: boolean
+  public daysInFermentationLoading: boolean
+  public updateIntervalMinsLoading: boolean
+  public lastUpdatedMinsLoading: boolean
+  public wifiSignalStrengthStatusLoading: boolean
 
-  public height: number;
+  private temperatureChart: Chart
+  private gravityChart: Chart
+  private batteryChart: Chart
+  private RSSIChart: Chart
+  private angleChart: Chart
+
+  public height: number
+  public mainContainerClassName: string = 'main'
+  public chooseBrewModalClassName: string = 'chooseBrewModalHidden'
 
   constructor(private monitoringUnitService: MonitoringUnitService, private batteryService: BatteryService, private angleService: AngleService,
     private temperatureService: TemperatureService, private gravityService: GravityService, private intervalService: IntervalService,
@@ -68,7 +76,6 @@ export class AppComponent implements OnInit {
         error => console.log('Error'),
         () => {
           this.populateAllChartsAndDataFields(this.brewName)
-          this.height = document.getElementById("temperatureChartContainer").clientHeight + document.getElementById("generalInfoContainer").clientHeight
         }
       )
   }
@@ -78,12 +85,23 @@ export class AppComponent implements OnInit {
   }
 
   populateAllChartsAndDataFields(brewName: string) {
+    this.resetLoaders()
+    this.brewName = brewName
     this.loadBatteryData(this.brewName)
     this.loadAngleData(this.brewName)
     this.loadTemperatureData(this.brewName)
     this.loadGravityData(this.brewName)
     this.loadIntervalData(this.brewName)
     this.loadRSSIData(this.brewName)
+    this.height = document.getElementById("temperatureChartContainer").clientHeight + document.getElementById("generalInfoContainer").clientHeight
+  }
+
+  resetLoaders() {
+    this.alcoholByVolumeLoading = true
+    this.daysInFermentationLoading = true
+    this.updateIntervalMinsLoading = true
+    this.lastUpdatedMinsLoading = true
+    this.wifiSignalStrengthStatusLoading = true
   }
 
   loadBatteryData(unitName: string) {
@@ -91,7 +109,7 @@ export class AppComponent implements OnInit {
       this.batteryData = batteryData as Battery
       this.lastBattery = this.round(batteryData.values[batteryData.values.length - 1], 2)
       this.lastUpdatedMins = this.round((Date.now() - batteryData.timestamps[batteryData.timestamps.length - 1]) / (60 * 1000), 0)
-      this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values)
+      this.batteryChart = this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values)
       this.lastUpdatedMinsLoading = false
     })
   }
@@ -100,7 +118,7 @@ export class AppComponent implements OnInit {
     this.angleService.fetchAllByUnitName(unitName).subscribe(angleData => {
       this.angleData = angleData as Angle
       this.lastAngle = this.round(angleData.values[angleData.values.length - 1], 2)
-      this.drawChartChart("angleChart", angleData.timestamps, angleData.values)
+      this.angleChart = this.drawChartChart("angleChart", angleData.timestamps, angleData.values)
     })
   }
 
@@ -108,14 +126,14 @@ export class AppComponent implements OnInit {
     this.temperatureService.fetchAllByUnitName(unitName).subscribe(temperatureData => {
       this.temperatureData = temperatureData as Temperature
       this.lastTemperature = this.round(temperatureData.values[temperatureData.values.length - 1], 2)
-      this.drawChartChart("temperatureChart", temperatureData.timestamps, temperatureData.values)
+      this.temperatureChart = this.drawChartChart("temperatureChart", temperatureData.timestamps, temperatureData.values)
     })
   }
 
   loadGravityData(unitName: string) {
     this.gravityService.fetchAllByUnitName(unitName).subscribe(gravityData => {
       this.gravityData = gravityData as Gravity
-      
+
       this.alcoholByVolume = this.calculateAlcoholByVolume(gravityData.values[0], gravityData.values[gravityData.values.length - 1])
       this.alcoholByVolumeLoading = false
 
@@ -123,7 +141,7 @@ export class AppComponent implements OnInit {
       this.daysInFermentationLoading = false
 
       this.lastGravity = this.round(gravityData.values[gravityData.values.length - 1], 4)
-      this.drawChartChart("gravityChart", gravityData.timestamps, gravityData.values)
+      this.gravityChart = this.drawChartChart("gravityChart", gravityData.timestamps, gravityData.values)
     })
   }
 
@@ -132,7 +150,7 @@ export class AppComponent implements OnInit {
       this.updateIntervalMins = this.round(interval.value / 60, 1)
       this.updateIntervalMinsLoading = false
 
-      this.isUnitOn = this.lastUpdatedMins - this.updateIntervalMins > 0
+      this.isUnitOn = this.updateIntervalMins - this.lastUpdatedMins > 0
     })
   }
 
@@ -143,8 +161,37 @@ export class AppComponent implements OnInit {
       this.wifiSignalStrengthStatusLoading = false
 
       this.lastRSSI = rssiData.values[rssiData.values.length - 1]
-      this.drawChartChart("rssiChart", rssiData.timestamps, rssiData.values)
+      this.RSSIChart = this.drawChartChart("rssiChart", rssiData.timestamps, rssiData.values)
     })
+  }
+
+  onMenuOpenClick() {
+    this.mainContainerClassName = 'mainBlurred'
+    this.chooseBrewModalClassName = 'chooseBrewModalVisible'
+  }
+
+  onMenuCloseClick() {
+    this.mainContainerClassName = 'main'
+    this.chooseBrewModalClassName = 'chooseBrewModalHidden'
+  }
+
+  onChooseBrewClick(brewName: string) {
+    this.resetLoaders()
+    this.destroyCharts()
+    this.onMenuCloseClick()
+    this.populateAllChartsAndDataFields(brewName)
+  }
+
+  destroyCharts() {
+    this.temperatureChart.destroy()
+    this.gravityChart.destroy()
+    this.batteryChart.destroy()
+    this.RSSIChart.destroy()
+    this.angleChart.destroy()
+  }
+
+  getDisplayValue(name: string) {
+    return name.replace(/_/g, " ")
   }
 
   resolveWifiSignalStrengthStatus(lastRSSIValue: number): string {

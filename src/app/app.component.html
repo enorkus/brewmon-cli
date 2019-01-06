@@ -1,6 +1,21 @@
-<section class="main">
+<div [className]="chooseBrewModalClassName">
+  <div class="modalHeader">
+    <div class="modalHeaderText">CHOOSE BREW</div>
+    <img (click)="onMenuCloseClick()" class="closeIcon" src="../assets/closeIcon.png" />
+  </div>
+  <div class="modalBody">
+    <ul class="chooseBrewList">
+      <li (click)="onChooseBrewClick(brew.name)" class="chooseBrewListItem" *ngFor="let brew of allUnits">
+        <div>{{brew.name && getDisplayValue(brew.name)}}</div>
+        <div class="onIndicator"></div>
+      </li>
+    </ul>
+  </div>
+</div>
+<section [className]="mainContainerClassName">
   <div class="header">
-    {{brewName}}
+    <img (click)="onMenuOpenClick()" class="menuIcon" src="../assets/menuIcon.png" />
+    <div class="headerText">{{brewName && getDisplayValue(brewName)}}</div>
   </div>
   <div class="topSection">
     <div class="topSectionStart">
@@ -8,38 +23,65 @@
         <div class="chartHeader">
           <img class="chartIcon" src="../assets/generalIcon.png" />
           <div>Details</div>
-          <div [hidden]="isUnitOn" class="chartHeaderLastValue" style="color: green">ON</div>
-          <div [hidden]="!isUnitOn" class="chartHeaderLastValue" style="color: gray">OFF</div>
+          <div [hidden]="updateIntervalMins && lastUpdatedMins && !(updateIntervalMins - lastUpdatedMins > 0)" class="chartHeaderLastValue" style="color: green">ON</div>
+          <div [hidden]="updateIntervalMins && lastUpdatedMins && updateIntervalMins - lastUpdatedMins > 0" class="chartHeaderLastValue" style="color: gray">OFF</div>
         </div>
         <div class="chartBody generalInfo">
           <div class="generalInfoRow">
             <div class="generalInfoCell">
               <div>Alcohol by volume</div>
               <div [hidden]="alcoholByVolumeLoading" class="generalInfoValue">{{alcoholByVolume}}%</div>
-              <div [hidden]="!alcoholByVolumeLoading" class="loader_small"><div></div><div></div><div></div><div></div></div>
+              <div [hidden]="!alcoholByVolumeLoading" class="loader_small">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
             </div>
             <div class="generalInfoCell">
               <div>In fermentation</div>
-              <div [hidden]="daysInFermentationLoading" class="generalInfoValue">{{daysInFermentation > 0 ? daysInFermentation : 1}} {{daysInFermentation > 1 ? 'days' : 'day'}}</div>
-              <div [hidden]="!daysInFermentationLoading" class="loader_small"><div></div><div></div><div></div><div></div></div>
+              <div [hidden]="daysInFermentationLoading" class="generalInfoValue">{{daysInFermentation > 0 ?
+                daysInFermentation : 1}} {{daysInFermentation > 1 ? 'days' : 'day'}}</div>
+              <div [hidden]="!daysInFermentationLoading" class="loader_small">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
             </div>
           </div>
           <div class="generalInfoRow">
             <div class="generalInfoCell">
               <div>Update interval</div>
               <div [hidden]="updateIntervalMinsLoading" class="generalInfoValue">{{updateIntervalMins}} mins</div>
-              <div [hidden]="!updateIntervalMinsLoading" class="loader_small"><div></div><div></div><div></div><div></div></div>
+              <div [hidden]="!updateIntervalMinsLoading" class="loader_small">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
             </div>
             <div class="generalInfoCell">
               <div>Last update</div>
-              <div [hidden]="lastUpdatedMinsLoading" class="generalInfoValue">{{lastUpdatedMins}} {{lastUpdatedMins > 1 ? 'mins' : 'min'}} ago</div>
-              <div [hidden]="!lastUpdatedMinsLoading" class="loader_small"><div></div><div></div><div></div><div></div></div>
+              <div [hidden]="lastUpdatedMinsLoading" class="generalInfoValue">{{lastUpdatedMins}} {{lastUpdatedMins > 1
+                ? 'mins' : 'min'}} ago</div>
+              <div [hidden]="!lastUpdatedMinsLoading" class="loader_small">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
             </div>
             <div class="generalInfoCell">
-                <div>WiFi signal</div>
-                <div [hidden]="wifiSignalStrengthStatusLoading" class="generalInfoValue">{{wifiSignalStrengthStatus}}</div>
-                <div [hidden]="!wifiSignalStrengthStatusLoading" class="loader_small"><div></div><div></div><div></div><div></div></div>
+              <div>WiFi signal</div>
+              <div [hidden]="wifiSignalStrengthStatusLoading" class="generalInfoValue">{{wifiSignalStrengthStatus}}</div>
+              <div [hidden]="!wifiSignalStrengthStatusLoading" class="loader_small">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
               </div>
+            </div>
           </div>
         </div>
       </section>

@@ -6,6 +6,34 @@
     width: 90%;
 }
 
+.mainBlurred {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    width: 90%;
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+.chooseBrewModalHidden {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+.chooseBrewModalVisible {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 .topSection {
     display: flex;
     flex: 1;
@@ -89,15 +117,46 @@
 }
 
 .header {
-    font-size: 24pt;
+    display: flex;
+    align-items: center;
     padding-left: 10px;
+}
+
+.headerText {
+    padding-bottom: 3px;
+    font-size: 24pt;
     font-family: 'Roboto', sans-serif;
-    color: #333538
+    color: #333538;
+}
+
+.modalHeader {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    justify-content: center;
+}
+
+.modalHeaderText {
+    font-size: 18pt;
+    font-family: 'Roboto', sans-serif;
+    color: #333538;
+    padding-right: 25px;
 }
 
 .chartIcon {
     height: 24px;
     padding-right: 5px;
+}
+
+.menuIcon {
+    height: 32px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.closeIcon {
+    cursor: pointer;
+    height: 32px;
 }
 
 .chartHeaderLastValue {
@@ -110,12 +169,31 @@
     color: #314665;
 }
 
+.chooseBrewList {
+    list-style-type: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18pt;
+    margin: 0;
+    display: flex;
+    padding: 0;
+    flex-direction: column;
+}
 
+.chooseBrewListItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
 
-
-
-
-
+.onIndicator {
+    height: 12px;
+    width: 12px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 20px;
+}
 
 .loader_small {
     display: inline-block;
