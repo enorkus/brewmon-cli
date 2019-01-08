@@ -1,7 +1,12 @@
 export class MonitoringUnit {
-    name: string;
+    name: string
+    on: boolean
+    updateIntervalMins: number
 
-    constructor(name: string) {
-        this.name = name;
+
+    constructor(name: string, on: boolean, updateIntervalMins: number) {
+        this.name = name
+        this.on = on
+        this.updateIntervalMins = updateIntervalMins
     }
 }

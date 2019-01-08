@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs'
 
 @Injectable()
 export class MonitoringUnitService {
@@ -10,6 +10,6 @@ export class MonitoringUnitService {
     constructor(private http: HttpClient) { }
 
     fetchAll(): Observable<any> {
-        return this.http.get(this.monitoringUnitsURI);
+        return this.http.get(this.monitoringUnitsURI)
     }
 }

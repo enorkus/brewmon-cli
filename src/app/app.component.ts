@@ -11,8 +11,6 @@ import { Temperature } from './temperature/temperature'
 import { TemperatureService } from './temperature/temperature.service'
 import { Gravity } from './gravity/gravity'
 import { GravityService } from './gravity/gravity.service'
-import { Interval } from './interval/interval'
-import { IntervalService } from './interval/interval.service'
 import { RSSI } from './rssi/rssi'
 import { RSSIService } from './rssi/rssi.service'
 import { Chart } from 'chart.js'
@@ -21,7 +19,7 @@ import { Chart } from 'chart.js'
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [BatteryService, MonitoringUnitService, AngleService, TemperatureService, GravityService, IntervalService, RSSIService],
+  providers: [BatteryService, MonitoringUnitService, AngleService, TemperatureService, GravityService, RSSIService],
 })
 export class AppComponent implements OnInit {
 
@@ -30,16 +28,14 @@ export class AppComponent implements OnInit {
   public angleData: Angle
   public temperatureData: Temperature
   public gravityData: Gravity
-  public interval: Interval
   public rssiData: RSSI
 
-  public brewName: string
+  public brew: MonitoringUnit
   public alcoholByVolume: number
   public daysInFermentation: number
   public updateIntervalMins: number
   public lastUpdatedMins: number
   public wifiSignalStrengthStatus: string
-  public isUnitOn: boolean
 
   public lastTemperature: number
   public lastGravity: number
@@ -64,18 +60,17 @@ export class AppComponent implements OnInit {
   public chooseBrewModalClassName: string = 'chooseBrewModalHidden'
 
   constructor(private monitoringUnitService: MonitoringUnitService, private batteryService: BatteryService, private angleService: AngleService,
-    private temperatureService: TemperatureService, private gravityService: GravityService, private intervalService: IntervalService,
-    private rssiService: RSSIService) { }
+    private temperatureService: TemperatureService, private gravityService: GravityService, private rssiService: RSSIService) { }
 
   ngOnInit() {
     this.fetchAllMonitoringUnits()
       .subscribe(allUnits => {
         this.allUnits = allUnits as MonitoringUnit[]
-        this.brewName = allUnits[0].name
+        this.brew = allUnits[0]
       },
         error => console.log('Error'),
         () => {
-          this.populateAllChartsAndDataFields(this.brewName)
+          this.populateAllChartsAndDataFields(this.brew)
         }
       )
   }
@@ -84,15 +79,15 @@ export class AppComponent implements OnInit {
     return this.monitoringUnitService.fetchAll()
   }
 
-  populateAllChartsAndDataFields(brewName: string) {
+  populateAllChartsAndDataFields(brew: MonitoringUnit) {
     this.resetLoaders()
-    this.brewName = brewName
-    this.loadBatteryData(this.brewName)
-    this.loadAngleData(this.brewName)
-    this.loadTemperatureData(this.brewName)
-    this.loadGravityData(this.brewName)
-    this.loadIntervalData(this.brewName)
-    this.loadRSSIData(this.brewName)
+    this.brew = brew
+    this.loadBatteryData(this.brew.name)
+    this.loadAngleData(this.brew.name)
+    this.loadTemperatureData(this.brew.name)
+    this.loadGravityData(this.brew.name)
+    this.loadIntervalData(this.brew.updateIntervalMins)
+    this.loadRSSIData(this.brew.name)
     this.height = document.getElementById("temperatureChartContainer").clientHeight + document.getElementById("generalInfoContainer").clientHeight
   }
 
@@ -145,13 +140,9 @@ export class AppComponent implements OnInit {
     })
   }
 
-  loadIntervalData(unitName: string) {
-    this.intervalService.fetchLatestByUnitName(unitName).subscribe(interval => {
-      this.updateIntervalMins = this.round(interval.value / 60, 1)
+  loadIntervalData(updateIntervalMins: number) {
+      this.updateIntervalMins = updateIntervalMins
       this.updateIntervalMinsLoading = false
-
-      this.isUnitOn = this.updateIntervalMins - this.lastUpdatedMins > 0
-    })
   }
 
   loadRSSIData(unitName: string) {
@@ -175,11 +166,11 @@ export class AppComponent implements OnInit {
     this.chooseBrewModalClassName = 'chooseBrewModalHidden'
   }
 
-  onChooseBrewClick(brewName: string) {
+  onChooseBrewClick(brew: MonitoringUnit) {
     this.resetLoaders()
     this.destroyCharts()
     this.onMenuCloseClick()
-    this.populateAllChartsAndDataFields(brewName)
+    this.populateAllChartsAndDataFields(brew)
   }
 
   destroyCharts() {

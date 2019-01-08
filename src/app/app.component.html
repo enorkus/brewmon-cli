@@ -5,9 +5,9 @@
   </div>
   <div class="modalBody">
     <ul class="chooseBrewList">
-      <li (click)="onChooseBrewClick(brew.name)" class="chooseBrewListItem" *ngFor="let brew of allUnits">
+      <li (click)="onChooseBrewClick(brew)" class="chooseBrewListItem" *ngFor="let brew of allUnits">
         <div>{{brew.name && getDisplayValue(brew.name)}}</div>
-        <div class="onIndicator"></div>
+        <div [className]="brew.on == true ? 'onIndicator' : 'offIndicator'"></div>
       </li>
     </ul>
   </div>
@@ -15,7 +15,7 @@
 <section [className]="mainContainerClassName">
   <div class="header">
     <img (click)="onMenuOpenClick()" class="menuIcon" src="../assets/menuIcon.png" />
-    <div class="headerText">{{brewName && getDisplayValue(brewName)}}</div>
+    <div class="headerText">{{brew.name && getDisplayValue(brew.name)}}</div>
   </div>
   <div class="topSection">
     <div class="topSectionStart">
@@ -23,8 +23,8 @@
         <div class="chartHeader">
           <img class="chartIcon" src="../assets/generalIcon.png" />
           <div>Details</div>
-          <div [hidden]="updateIntervalMins && lastUpdatedMins && !(updateIntervalMins - lastUpdatedMins > 0)" class="chartHeaderLastValue" style="color: green">ON</div>
-          <div [hidden]="updateIntervalMins && lastUpdatedMins && updateIntervalMins - lastUpdatedMins > 0" class="chartHeaderLastValue" style="color: gray">OFF</div>
+          <div [hidden]="!brew.on" class="chartHeaderLastValue" style="color: green">ON</div>
+          <div [hidden]="brew.on" class="chartHeaderLastValue" style="color: gray">OFF</div>
         </div>
         <div class="chartBody generalInfo">
           <div class="generalInfoRow">
