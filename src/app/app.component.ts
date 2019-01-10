@@ -14,6 +14,7 @@ import { GravityService } from './gravity/gravity.service'
 import { RSSI } from './rssi/rssi'
 import { RSSIService } from './rssi/rssi.service'
 import { Chart } from 'chart.js'
+import { last } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +35,7 @@ export class AppComponent implements OnInit {
   public alcoholByVolume: number
   public daysInFermentation: number
   public updateIntervalMins: number
-  public lastUpdatedMins: number
+  public lastUpdated: string
   public wifiSignalStrengthStatus: string
 
   public lastTemperature: number
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit {
   public alcoholByVolumeLoading: boolean
   public daysInFermentationLoading: boolean
   public updateIntervalMinsLoading: boolean
-  public lastUpdatedMinsLoading: boolean
+  public lastUpdatedLoading: boolean
   public wifiSignalStrengthStatusLoading: boolean
 
   private temperatureChart: Chart
@@ -95,7 +96,7 @@ export class AppComponent implements OnInit {
     this.alcoholByVolumeLoading = true
     this.daysInFermentationLoading = true
     this.updateIntervalMinsLoading = true
-    this.lastUpdatedMinsLoading = true
+    this.lastUpdatedLoading = true
     this.wifiSignalStrengthStatusLoading = true
   }
 
@@ -103,9 +104,8 @@ export class AppComponent implements OnInit {
     this.batteryService.fetchAllByUnitName(unitName).subscribe(batteryData => {
       this.batteryData = batteryData as Battery
       this.lastBattery = this.round(batteryData.values[batteryData.values.length - 1], 2)
-      this.lastUpdatedMins = this.round((Date.now() - batteryData.timestamps[batteryData.timestamps.length - 1]) / (60 * 1000), 0)
+      this.getLastUpdatedDisplayValue(batteryData.timestamps)
       this.batteryChart = this.drawChartChart("batteryChart", batteryData.timestamps, batteryData.values)
-      this.lastUpdatedMinsLoading = false
     })
   }
 
@@ -141,8 +141,8 @@ export class AppComponent implements OnInit {
   }
 
   loadIntervalData(updateIntervalMins: number) {
-      this.updateIntervalMins = updateIntervalMins
-      this.updateIntervalMinsLoading = false
+    this.updateIntervalMins = updateIntervalMins
+    this.updateIntervalMinsLoading = false
   }
 
   loadRSSIData(unitName: string) {
@@ -183,6 +183,32 @@ export class AppComponent implements OnInit {
 
   getDisplayValue(name: string) {
     return name.replace(/_/g, " ")
+  }
+
+  getLastUpdatedDisplayValue(timestamps: number[]) {
+    var lastUpdatedMins = this.round((Date.now() - timestamps[timestamps.length - 1]) / (60 * 1000), 0)
+    var lastUpdatedHours = this.round(lastUpdatedMins/60, 0)
+    var lastUpdatedDays = this.round(lastUpdatedHours/24, 0)
+    var lastUpdatedMonths = this.round(lastUpdatedDays/30, 0)
+    var lastUpdatedYears = this.round(lastUpdatedMonths/12, 0)
+
+    if(lastUpdatedMins < 1) {
+      this.lastUpdated = "Just now"
+      this.lastUpdatedLoading = false
+      return
+    } else if(lastUpdatedMins < 60) {
+      this.lastUpdated = lastUpdatedMins + " min" + (lastUpdatedMins == 1 ? "" : "s")
+    } else if(lastUpdatedHours < 24) {
+      this.lastUpdated = lastUpdatedHours + " hour" + (lastUpdatedHours == 1 ? "" : "s")
+    } else if(lastUpdatedDays < 30) {
+      this.lastUpdated = lastUpdatedDays + " day" + (lastUpdatedDays == 1 ? "" : "s")
+    } else if(lastUpdatedMonths < 12) {
+      this.lastUpdated = lastUpdatedMonths + " month" + (lastUpdatedMonths == 1 ? "" : "s")
+    } else {
+      this.lastUpdated = lastUpdatedYears + " year" + (lastUpdatedYears == 1 ? "" : "s")
+    }
+    this.lastUpdated = this.lastUpdated + " ago"
+    this.lastUpdatedLoading = false
   }
 
   resolveWifiSignalStrengthStatus(lastRSSIValue: number): string {

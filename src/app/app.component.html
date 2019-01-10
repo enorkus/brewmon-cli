@@ -63,9 +63,8 @@
             </div>
             <div class="generalInfoCell">
               <div>Last update</div>
-              <div [hidden]="lastUpdatedMinsLoading" class="generalInfoValue">{{lastUpdatedMins}} {{lastUpdatedMins > 1
-                ? 'mins' : 'min'}} ago</div>
-              <div [hidden]="!lastUpdatedMinsLoading" class="loader_small">
+              <div [hidden]="lastUpdatedLoading" class="generalInfoValue">{{lastUpdated}}</div>
+              <div [hidden]="!lastUpdatedLoading" class="loader_small">
                 <div></div>
                 <div></div>
                 <div></div>
