@@ -30,9 +30,9 @@ export class AppComponent implements OnInit {
   public rssiData: RSSI
 
   public brew: MonitoringUnit
-  public alcoholByVolume: number
-  public daysInFermentation: number
-  public updateIntervalMins: number
+  public alcoholByVolume: string
+  public daysInFermentation: string
+  public updateIntervalMins: string
   public lastUpdated: string
   public wifiSignalStrengthStatus: string
 
@@ -131,10 +131,11 @@ export class AppComponent implements OnInit {
     this.gravityService.fetchAllByUnitName(unitName).subscribe(gravityData => {
       this.gravityData = gravityData as Gravity
 
-      this.alcoholByVolume = this.calculateAlcoholByVolume(gravityData.values[0], gravityData.values[gravityData.values.length - 1])
+      this.alcoholByVolume = this.calculateAlcoholByVolume(gravityData.values[0], gravityData.values[gravityData.values.length - 1]) + "%"
       this.alcoholByVolumeLoading = false
 
-      this.daysInFermentation = this.calculateDaysInFermentation(gravityData.timestamps[0], gravityData.timestamps[gravityData.timestamps.length - 1])
+      var numOfDaysInFermentation = this.calculateDaysInFermentation(gravityData.timestamps[0], gravityData.timestamps[gravityData.timestamps.length - 1])
+      this.daysInFermentation = (numOfDaysInFermentation > 0 ? numOfDaysInFermentation : 1) + " day" + (numOfDaysInFermentation > 1 ? "s" : "")
       this.daysInFermentationLoading = false
 
       this.lastGravity = this.round(gravityData.values[gravityData.values.length - 1], 4)
@@ -143,7 +144,7 @@ export class AppComponent implements OnInit {
   }
 
   loadIntervalData(updateIntervalMins: number) {
-    this.updateIntervalMins = updateIntervalMins
+    this.updateIntervalMins = updateIntervalMins + " min" + (updateIntervalMins > 1 ? "s" : "")
     this.updateIntervalMinsLoading = false
   }
 
