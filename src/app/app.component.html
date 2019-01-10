@@ -6,7 +6,7 @@
   <div class="modalBody">
     <ul class="chooseBrewList">
       <li (click)="onChooseBrewClick(brew)" class="chooseBrewListItem" *ngFor="let brew of allUnits">
-        <div>{{brew.name && getDisplayValue(brew.name)}}</div>
+        <div>{{brew && getDisplayValue(brew)}}</div>
         <div [className]="brew.on == true ? 'onIndicator' : 'offIndicator'"></div>
       </li>
     </ul>
@@ -15,7 +15,7 @@
 <section [className]="mainContainerClassName">
   <div class="header">
     <img (click)="onMenuOpenClick()" class="menuIcon" src="../assets/menuIcon.png" />
-    <div class="headerText">{{brew.name && getDisplayValue(brew.name)}}</div>
+    <div class="headerText">{{brew && getDisplayValue(brew)}}</div>
   </div>
   <div class="topSection">
     <div class="topSectionStart">
@@ -23,8 +23,8 @@
         <div class="chartHeader">
           <img class="chartIcon" src="../assets/generalIcon.png" />
           <div>Details</div>
-          <div [hidden]="!brew.on" class="chartHeaderLastValue" style="color: green">ON</div>
-          <div [hidden]="brew.on" class="chartHeaderLastValue" style="color: gray">OFF</div>
+          <div [hidden]="brew && !brew.on" class="chartHeaderLastValue" style="color: green">ON</div>
+          <div [hidden]="brew && brew.on" class="chartHeaderLastValue" style="color: gray">OFF</div>
         </div>
         <div class="chartBody generalInfo">
           <div class="generalInfoRow">

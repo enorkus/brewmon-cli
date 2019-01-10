@@ -181,8 +181,8 @@ export class AppComponent implements OnInit {
     this.angleChart.destroy()
   }
 
-  getDisplayValue(name: string) {
-    return name.replace(/_/g, " ")
+  getDisplayValue(brew: MonitoringUnit) {
+    return brew.name.replace(/_/g, " ")
   }
 
   getLastUpdatedDisplayValue(timestamps: number[]) {
