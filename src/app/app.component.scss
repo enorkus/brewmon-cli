@@ -34,6 +34,13 @@
     z-index: 1;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    min-width: 320px;
+    @media only screen and (max-width: 600px) {
+        width: 70%;
+    }
+    @media only screen and (max-width: 450px) {
+        width: 90%;
+    }
 }
 
 .topSection {
@@ -41,7 +48,7 @@
     flex: 1;
     @media only screen and (max-width: 1135px) {
         flex-direction: column;
-      }
+    }
 }
 
 .topSectionStart {
@@ -65,7 +72,7 @@
     align-items: stretch;
     @media only screen and (max-width: 1135px) {
         flex-direction: column;
-      }
+    }
 }
 
 .chartSection {
