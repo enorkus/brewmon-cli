@@ -6,6 +6,8 @@
     justify-content: center;
     margin: 0 auto;
     width: 90%;
+    filter: blur(0);
+    transition: 0.3s;
 }
 
 .mainBlurred {
@@ -16,6 +18,7 @@
     width: 90%;
     filter: blur(8px);
     pointer-events: none;
+    transition: 0.3s;
 }
 
 .chooseBrewModalHidden {
@@ -153,6 +156,7 @@
 
 .modalHeaderText {
     font-size: 18pt;
+    font-weight: 600;
     font-family: 'Roboto', sans-serif;
     color: $header-text;
     padding-right: 25px;
@@ -167,11 +171,19 @@
     height: 32px;
     padding: 0 5px 3px 0;
     cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        transform: scale(1.20);
+    }
 }
 
 .closeIcon {
     cursor: pointer;
     height: 32px;
+    transition: 0.3s;
+    &:hover {
+        transform: scale(1.20);
+    }
 }
 
 .chartHeaderLastValue {
