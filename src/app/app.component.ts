@@ -4,7 +4,6 @@ import { BatteryService } from './battery/battery.service'
 import { MonitoringUnit } from './monitoring-unit/monitoring-unit'
 import { MonitoringUnitService } from './monitoring-unit/monitoring-unit.service'
 import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
 import { Angle } from './angle/angle'
 import { AngleService } from './angle/angle.service'
 import { Temperature } from './temperature/temperature'
@@ -14,7 +13,6 @@ import { GravityService } from './gravity/gravity.service'
 import { RSSI } from './rssi/rssi'
 import { RSSIService } from './rssi/rssi.service'
 import { Chart } from 'chart.js'
-import { last } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-root',
@@ -89,7 +87,11 @@ export class AppComponent implements OnInit {
     this.loadGravityData(this.brew.name)
     this.loadIntervalData(this.brew.updateIntervalMins)
     this.loadRSSIData(this.brew.name)
-    this.height = document.getElementById("temperatureChartContainer").clientHeight + document.getElementById("generalInfoContainer").clientHeight
+
+    var bodyWidth = document.getElementsByTagName("body")[0].clientWidth
+    if(bodyWidth > 1135) {
+      this.height = document.getElementById("temperatureChartContainer").clientHeight + document.getElementById("generalInfoContainer").clientHeight
+    }
   }
 
   resetLoaders() {

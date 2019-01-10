@@ -37,6 +37,9 @@
 .topSection {
     display: flex;
     flex: 1;
+    @media only screen and (max-width: 1135px) {
+        flex-direction: column;
+      }
 }
 
 .topSectionStart {
@@ -58,6 +61,9 @@
     display: flex;
     justify-content: space-evenly;
     align-items: stretch;
+    @media only screen and (max-width: 1135px) {
+        flex-direction: column;
+      }
 }
 
 .chartSection {
@@ -84,7 +90,7 @@
 }
 
 .chartBody {
-    padding: 10px 10px 10px 10px;
+    padding: 10px 0 10px 10px;
     &.generalInfo {
         display: flex;
         flex-direction: column;
