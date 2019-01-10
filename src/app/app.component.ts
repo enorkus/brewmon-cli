@@ -42,11 +42,11 @@ export class AppComponent implements OnInit {
   public lastRSSI: number
   public lastAngle: number
 
-  public alcoholByVolumeLoading: boolean
-  public daysInFermentationLoading: boolean
-  public updateIntervalMinsLoading: boolean
-  public lastUpdatedLoading: boolean
-  public wifiSignalStrengthStatusLoading: boolean
+  public alcoholByVolumeLoading: boolean = true
+  public daysInFermentationLoading: boolean = true
+  public updateIntervalMinsLoading: boolean = true
+  public lastUpdatedLoading: boolean = true
+  public wifiSignalStrengthStatusLoading: boolean = true
 
   private temperatureChart: Chart
   private gravityChart: Chart
