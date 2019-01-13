@@ -160,13 +160,19 @@ export class AppComponent implements OnInit {
   }
 
   onMenuOpenClick() {
-    this.mainContainerClassName = 'mainBlurred'
-    this.chooseBrewModalClassName = 'chooseBrewModalVisible'
+    setTimeout(() => {
+      this.mainContainerClassName = 'mainBlurred'
+    }, 100)
+    setTimeout(() => {
+      this.chooseBrewModalClassName = 'chooseBrewModalVisible'
+    }, 300)
   }
 
   onMenuCloseClick() {
-    this.mainContainerClassName = 'main'
-    this.chooseBrewModalClassName = 'chooseBrewModalHidden'
+    setTimeout(() => {
+      this.chooseBrewModalClassName = 'chooseBrewModalHidden'
+      this.mainContainerClassName = 'main'
+    }, 100)
   }
 
   onChooseBrewClick(brew: MonitoringUnit) {
