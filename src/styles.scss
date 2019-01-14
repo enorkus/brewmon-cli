@@ -1,5 +1,8 @@
 html {
     height: 100%;
+    @media only screen and (max-width: 1135px) {
+        padding-top: 10px;
+    }
 }
 
 body {
@@ -12,7 +15,7 @@ body {
     min-width: 320px;
     @media only screen and (max-width: 1135px) {
         height: unset;
-      }
+    }
 }
 
 [hidden] { display: none !important;}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, enableProdMode } from '@angular/core'
 import { Battery } from './battery/battery'
 import { BatteryService } from './battery/battery.service'
 import { MonitoringUnit } from './monitoring-unit/monitoring-unit'
@@ -13,6 +13,11 @@ import { GravityService } from './gravity/gravity.service'
 import { RSSI } from './rssi/rssi'
 import { RSSIService } from './rssi/rssi.service'
 import { Chart } from 'chart.js'
+import { environment } from 'src/environments/environment.prod';
+
+if(environment.production) {
+  enableProdMode();
+}
 
 @Component({
   selector: 'app-root',
