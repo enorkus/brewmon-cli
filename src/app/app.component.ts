@@ -13,9 +13,10 @@ import { GravityService } from './gravity/gravity.service'
 import { RSSI } from './rssi/rssi'
 import { RSSIService } from './rssi/rssi.service'
 import { Chart } from 'chart.js'
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment.prod'
+import { LocalStorageService } from 'ngx-webstorage'
 
-if(environment.production) {
+if (environment.production) {
   enableProdMode();
 }
 
@@ -62,15 +63,22 @@ export class AppComponent implements OnInit {
   public height: number
   public mainContainerClassName: string = 'main'
   public chooseBrewModalClassName: string = 'chooseBrewModalHidden'
+  public static readonly SELECTED_BREW_KEY: string = "selectedBrew"
 
   constructor(private monitoringUnitService: MonitoringUnitService, private batteryService: BatteryService, private angleService: AngleService,
-    private temperatureService: TemperatureService, private gravityService: GravityService, private rssiService: RSSIService) { }
+    private temperatureService: TemperatureService, private gravityService: GravityService, private rssiService: RSSIService, private storage: LocalStorageService) { }
 
   ngOnInit() {
+    var selectedBrew = this.storage.retrieve(AppComponent.SELECTED_BREW_KEY)
+
     this.fetchAllMonitoringUnits()
       .subscribe(allUnits => {
         this.allUnits = allUnits as MonitoringUnit[]
-        this.brew = allUnits[0]
+        if (selectedBrew) {
+          this.brew = allUnits.find(unit => unit.name === selectedBrew)
+        } else {
+          this.brew = allUnits[0]
+        }
       },
         error => console.log('Error'),
         () => {
@@ -84,6 +92,7 @@ export class AppComponent implements OnInit {
   }
 
   populateAllChartsAndDataFields(brew: MonitoringUnit) {
+    this.storage.store(AppComponent.SELECTED_BREW_KEY, brew.name)
     this.resetLoaders()
     this.brew = brew
     this.loadBatteryData(this.brew.name)
@@ -94,7 +103,7 @@ export class AppComponent implements OnInit {
     this.loadRSSIData(this.brew.name)
 
     var bodyWidth = document.getElementsByTagName("body")[0].clientWidth
-    if(bodyWidth > 1135) {
+    if (bodyWidth > 1135) {
       this.height = document.getElementById("temperatureChartContainer").clientHeight + document.getElementById("generalInfoContainer").clientHeight
     }
   }
@@ -201,22 +210,22 @@ export class AppComponent implements OnInit {
 
   getLastUpdatedDisplayValue(timestamps: number[]) {
     var lastUpdatedMins = this.round((Date.now() - timestamps[timestamps.length - 1]) / (60 * 1000), 0)
-    var lastUpdatedHours = this.round(lastUpdatedMins/60, 0)
-    var lastUpdatedDays = this.round(lastUpdatedHours/24, 0)
-    var lastUpdatedMonths = this.round(lastUpdatedDays/30, 0)
-    var lastUpdatedYears = this.round(lastUpdatedMonths/12, 0)
+    var lastUpdatedHours = this.round(lastUpdatedMins / 60, 0)
+    var lastUpdatedDays = this.round(lastUpdatedHours / 24, 0)
+    var lastUpdatedMonths = this.round(lastUpdatedDays / 30, 0)
+    var lastUpdatedYears = this.round(lastUpdatedMonths / 12, 0)
 
-    if(lastUpdatedMins < 1) {
+    if (lastUpdatedMins < 1) {
       this.lastUpdated = "Just now"
       this.lastUpdatedLoading = false
       return
-    } else if(lastUpdatedMins < 60) {
+    } else if (lastUpdatedMins < 60) {
       this.lastUpdated = lastUpdatedMins + " min" + (lastUpdatedMins == 1 ? "" : "s")
-    } else if(lastUpdatedHours < 24) {
+    } else if (lastUpdatedHours < 24) {
       this.lastUpdated = lastUpdatedHours + " hour" + (lastUpdatedHours == 1 ? "" : "s")
-    } else if(lastUpdatedDays < 30) {
+    } else if (lastUpdatedDays < 30) {
       this.lastUpdated = lastUpdatedDays + " day" + (lastUpdatedDays == 1 ? "" : "s")
-    } else if(lastUpdatedMonths < 12) {
+    } else if (lastUpdatedMonths < 12) {
       this.lastUpdated = lastUpdatedMonths + " month" + (lastUpdatedMonths == 1 ? "" : "s")
     } else {
       this.lastUpdated = lastUpdatedYears + " year" + (lastUpdatedYears == 1 ? "" : "s")
