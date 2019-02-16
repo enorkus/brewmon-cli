@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { BrewChartComponent } from './brew-chart/brew-chart.component';
+import { BrewDetailsComponent } from './brew-details/brew-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BrewChartComponent
+    BrewChartComponent,
+    BrewDetailsComponent
   ],
   imports: [
     HttpClientModule,

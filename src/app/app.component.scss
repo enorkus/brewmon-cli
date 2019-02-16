@@ -96,58 +96,8 @@ brew-chart {
     border-radius: 5px;
 }
 
-.chart-section {
-    flex: 1;
-    margin: 10px 10px 10px 10px;
-    -webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.2);
-    -moz-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.2);
-    box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.2);
-    background-color: white;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    min-width: 0;
-    min-height: 0;
-}
-
-.chart-header {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid $chart-header-bottom-line;
-    margin: 0 0 10px 0;
-    padding: 10px 0 10px 20px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 12pt;
-    color: $chart-header-label
-}
-
 .chart-body {
     padding: 10px 0 10px 10px;
-    &.generalInfo {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-family: 'Roboto', sans-serif;
-        margin-bottom: 10px;
-    }
-}
-
-.general-info-row {
-    display: flex;
-    padding: 10px;
-}
-
-.general-info-cell {
-    padding: 0 20px 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.general-info-value {
-    font-size: 16pt;
-    color: $general-details-values;
 }
 
 .header {
@@ -178,11 +128,6 @@ brew-chart {
     padding-right: 25px;
 }
 
-.chart-icon {
-    height: 24px;
-    padding-right: 5px;
-}
-
 .menu-icon {
     height: 32px;
     padding: 0 5px 3px 0;
@@ -208,16 +153,6 @@ brew-chart {
         transition: 0.1s;
         transform: scale(1.40);
     }
-}
-
-.chart-header-last-value {
-    display: flex;
-    flex-grow: 1;
-    justify-content: flex-end;
-    padding-right: 20px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 600;
-    color: $chart-header-last-value;
 }
 
 .choose-brew-list {
@@ -261,40 +196,4 @@ brew-chart {
     display: inline-block;
     margin-left: 20px;
 }
-
-.loader-small {
-    display: inline-block;
-    position: relative;
-    width: 32px;
-    height: 32px;
-  }
-  .loader-small div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    margin: 6px;
-    border: 2px solid $loader;
-    border-radius: 50%;
-    animation: loader-anim 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: $loader transparent transparent transparent;
-  }
-  .loader-small div:nth-child(1) {
-    animation-delay: -0.45s;
-  }
-  .loader-small div:nth-child(2) {
-    animation-delay: -0.3s;
-  }
-  .loader-small div:nth-child(3) {
-    animation-delay: -0.15s;
-  }
-  @keyframes loader-anim {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
   

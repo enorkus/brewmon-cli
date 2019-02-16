@@ -1,0 +1,64 @@
+<div id="generalInfoContainer" class="details-container">
+  <div class="details-header">
+    <img class="details-icon" src="../assets/generalIcon.png" />
+    <div>Details</div>
+    <div [hidden]="brew && !brew.on" class="details-on-indicator" style="color: green">ON</div>
+    <div [hidden]="brew && brew.on" class="details-on-indicator" style="color: gray">OFF</div>
+  </div>
+  <div class="details">
+    <div class="details-row">
+      <div class="details-cell">
+        <div>Alcohol by volume</div>
+        <div [hidden]="alcoholByVolumeLoading" class="details-value">{{alcoholByVolume}}</div>
+        <div [hidden]="!alcoholByVolumeLoading" class="loader-small">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <div class="details-cell">
+        <div>In fermentation</div>
+        <div [hidden]="daysInFermentationLoading" class="details-value">{{daysInFermentation}}</div>
+        <div [hidden]="!daysInFermentationLoading" class="loader-small">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <div class="details-row">
+      <div class="details-cell">
+        <div>Update interval</div>
+        <div [hidden]="updateIntervalMinsLoading" class="details-value">{{updateIntervalMins}}</div>
+        <div [hidden]="!updateIntervalMinsLoading" class="loader-small">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <div class="details-cell">
+        <div>Last update</div>
+        <div [hidden]="lastUpdatedLoading" class="details-value">{{lastUpdated}}</div>
+        <div [hidden]="!lastUpdatedLoading" class="loader-small">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <div class="details-cell">
+        <div>WiFi signal</div>
+        <div [hidden]="wifiSignalStrengthStatusLoading" class="details-value">{{wifiSignalStrengthStatus}}</div>
+        <div [hidden]="!wifiSignalStrengthStatusLoading" class="loader-small">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

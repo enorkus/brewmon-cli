@@ -1,0 +1,104 @@
+@import "../../assets/colors.scss";
+
+.details-container {
+    flex: 1;
+    margin: 10px 10px 10px 10px;
+    -webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.2);
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    min-width: 0;
+    min-height: 0;
+}
+
+.details-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $chart-header-bottom-line;
+    margin: 0 0 10px 0;
+    padding: 10px 0 10px 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12pt;
+    color: $chart-header-label
+}
+
+.details-icon {
+    height: 24px;
+    padding-right: 5px;
+}
+
+.details-on-indicator {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    padding-right: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    color: $chart-header-last-value;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 10px;
+    padding: 10px 0 25px 10px;
+}
+
+.details-row {
+    display: flex;
+    padding: 10px;
+}
+
+.details-cell {
+    padding: 0 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.details-value {
+    font-size: 16pt;
+    color: $general-details-values;
+}
+
+.loader-small {
+    display: inline-block;
+    position: relative;
+    width: 32px;
+    height: 32px;
+  }
+  .loader-small div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    margin: 6px;
+    border: 2px solid $loader;
+    border-radius: 50%;
+    animation: loader-anim 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: $loader transparent transparent transparent;
+  }
+  .loader-small div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .loader-small div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .loader-small div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes loader-anim {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

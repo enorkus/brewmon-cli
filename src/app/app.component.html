@@ -19,92 +19,31 @@
   </div>
   <div class="top-section">
     <div class="top-section-start">
-      <section id="generalInfoContainer" class="chart-section">
-        <div class="chart-header">
-          <img class="chart-icon" src="../assets/generalIcon.png" />
-          <div>Details</div>
-          <div [hidden]="brew && !brew.on" class="chart-header-last-value" style="color: green">ON</div>
-          <div [hidden]="brew && brew.on" class="chart-header-last-value" style="color: gray">OFF</div>
-        </div>
-        <div class="chart-body generalInfo">
-          <div class="general-info-row">
-            <div class="general-info-cell">
-              <div>Alcohol by volume</div>
-              <div [hidden]="alcoholByVolumeLoading" class="general-info-value">{{alcoholByVolume}}</div>
-              <div [hidden]="!alcoholByVolumeLoading" class="loader-small">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-            <div class="general-info-cell">
-              <div>In fermentation</div>
-              <div [hidden]="daysInFermentationLoading" class="general-info-value">{{daysInFermentation}}</div>
-              <div [hidden]="!daysInFermentationLoading" class="loader-small">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-          <div class="general-info-row">
-            <div class="general-info-cell">
-              <div>Update interval</div>
-              <div [hidden]="updateIntervalMinsLoading" class="general-info-value">{{updateIntervalMins}}</div>
-              <div [hidden]="!updateIntervalMinsLoading" class="loader-small">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-            <div class="general-info-cell">
-              <div>Last update</div>
-              <div [hidden]="lastUpdatedLoading" class="general-info-value">{{lastUpdated}}</div>
-              <div [hidden]="!lastUpdatedLoading" class="loader-small">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-            <div class="general-info-cell">
-              <div>WiFi signal</div>
-              <div [hidden]="wifiSignalStrengthStatusLoading" class="general-info-value">{{wifiSignalStrengthStatus}}</div>
-              <div [hidden]="!wifiSignalStrengthStatusLoading" class="loader-small">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <brew-chart [brewName]="brewName" [dataService]="temperatureService" [chartId]="'temperatureChart'" [iconPath]="'../assets/temperatureIcon.png'"
-        [title]="'Temperature'" [unit]="' °C'"></brew-chart>
+      <brew-details [brew]="brew"></brew-details>
+
+      <brew-chart [brewName]="brewName" [dataService]="temperatureService" [chartId]="'temperatureChart'"
+        [iconPath]="'../assets/temperatureIcon.png'" [title]="'Temperature'" [unit]="' °C'"></brew-chart>
 
     </div>
 
     <div class="top-section-end">
-      <brew-chart [brewName]="brewName" [dataService]="gravityService" [chartId]="'gravityChart'" [iconPath]="'../assets/gravityIcon.png'"
-        [title]="'Gravity'" [height]="height" [lastValueDecimals]="4"></brew-chart>
+      <brew-chart [brewName]="brewName" [dataService]="gravityService" [chartId]="'gravityChart'"
+        [iconPath]="'../assets/gravityIcon.png'" [title]="'Gravity'" [height]="height" [lastValueDecimals]="4">
+      </brew-chart>
     </div>
 
   </div>
 
   <div class="bottom-section">
-    <brew-chart [brewName]="brewName" [dataService]="batteryService" [chartId]="'batteryChart'" [iconPath]="'../assets/batteryIcon.png'"
-      [title]="'Battery'" [unit]="' V'"></brew-chart>
+    <brew-chart [brewName]="brewName" [dataService]="batteryService" [chartId]="'batteryChart'"
+      [iconPath]="'../assets/batteryIcon.png'" [title]="'Battery'" [unit]="' V'"></brew-chart>
 
-    <brew-chart [brewName]="brewName" [dataService]="rssiService" [chartId]="'rssiChart'" [iconPath]="'../assets/wifiIcon.png'"
-      [title]="'RSSI'" [unit]="' dBm'"></brew-chart>
+    <brew-chart [brewName]="brewName" [dataService]="rssiService" [chartId]="'rssiChart'"
+      [iconPath]="'../assets/wifiIcon.png'" [title]="'RSSI'" [unit]="' dBm'"></brew-chart>
 
-    <brew-chart [brewName]="brewName" [dataService]="angleService" [chartId]="'angleChart'" [iconPath]="'../assets/angleIcon.png'"
-      [title]="'Angle'" [unit]="'°'"></brew-chart>
+    <brew-chart [brewName]="brewName" [dataService]="angleService" [chartId]="'angleChart'"
+      [iconPath]="'../assets/angleIcon.png'" [title]="'Angle'" [unit]="'°'"></brew-chart>
   </div>
 </section>
 <router-outlet></router-outlet>
