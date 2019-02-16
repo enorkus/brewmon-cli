@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   public brewName: Observable<string>
   public brew: MonitoringUnit
   public allUnits: MonitoringUnit[]
-  
+
   public alcoholByVolume: string
   public daysInFermentation: string
   public updateIntervalMins: string
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
 
     this.fetchAllMonitoringUnits()
       .subscribe(allUnits => {
-        this.allUnits = allUnits.sort((a,b) => a.lastUpdatedMillis < b.lastUpdatedMillis ? 1 : a.lastUpdatedMillis == b.lastUpdatedMillis? 0 : -1)
+        this.allUnits = allUnits.sort((a, b) => a.lastUpdatedMillis < b.lastUpdatedMillis ? 1 : a.lastUpdatedMillis == b.lastUpdatedMillis ? 0 : -1)
         if (selectedBrew) {
           this.brew = allUnits.find(unit => unit.name === selectedBrew)
         } else {
@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
     this.resetLoaders()
     this.brew = brew
     this.setDetailsValues(this.brew)
-    
+
     var bodyWidth = document.getElementsByTagName("body")[0].clientWidth
     if (bodyWidth > 1135) {
       this.height = document.getElementById("temperatureChart").clientHeight + 20 + document.getElementById("generalInfoContainer").clientHeight
@@ -100,8 +100,8 @@ export class AppComponent implements OnInit {
   }
 
   setAlcoholByVolumeDisplayValue(alcoholByVolume: number) {
-      this.alcoholByVolume = this.round(alcoholByVolume, 2) + "%"
-      this.alcoholByVolumeLoading = false
+    this.alcoholByVolume = this.round(alcoholByVolume, 2) + "%"
+    this.alcoholByVolumeLoading = false
   }
 
   setDaysInFermentationDisplayValue(daysInFermentation: number) {
