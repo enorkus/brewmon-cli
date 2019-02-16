@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
 
   public height: number
   public mainContainerClassName: string = 'main'
-  public chooseBrewModalClassName: string = 'chooseBrewModalHidden'
+  public chooseBrewModalClassName: string = 'choose-brew-modal-hidden'
   public static readonly SELECTED_BREW_KEY: string = "selectedBrew"
 
   constructor(private monitoringUnitService: MonitoringUnitService, public batteryService: BatteryService, public angleService: AngleService,
@@ -147,16 +147,16 @@ export class AppComponent implements OnInit {
 
   onMenuOpenClick() {
     setTimeout(() => {
-      this.mainContainerClassName = 'mainBlurred'
+      this.mainContainerClassName = 'main-blurred'
     }, 100)
     setTimeout(() => {
-      this.chooseBrewModalClassName = 'chooseBrewModalVisible'
+      this.chooseBrewModalClassName = 'choose-brew-modal-visible'
     }, 300)
   }
 
   onMenuCloseClick() {
     setTimeout(() => {
-      this.chooseBrewModalClassName = 'chooseBrewModalHidden'
+      this.chooseBrewModalClassName = 'choose-brew-modal-hidden'
       this.mainContainerClassName = 'main'
     }, 100)
   }

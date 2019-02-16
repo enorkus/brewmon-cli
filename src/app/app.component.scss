@@ -10,7 +10,7 @@
     transition: 0.3s;
 }
 
-.mainBlurred {
+.main-blurred {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,14 +21,14 @@
     transition: 0.3s;
 }
 
-.chooseBrewModalHidden {
+.choose-brew-modal-hidden {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
 }
 
-.chooseBrewModalVisible {
+.choose-brew-modal-visible {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -46,7 +46,7 @@
     }
 }
 
-.topSection {
+.top-section {
     display: flex;
     flex: 1;
     @media only screen and (max-width: 1135px) {
@@ -54,7 +54,7 @@
     }
 }
 
-.topSectionStart {
+.top-section-start {
     display: flex;
     flex-direction: column;
     order: 1;
@@ -64,7 +64,7 @@
     min-height: 0;
 }
 
-.topSectionEnd {
+.top-section-end {
     display: flex;
     flex-direction: column;
     order: 2;
@@ -73,7 +73,7 @@
     min-height: 0;
 }
 
-.bottomSection {
+.bottom-section {
     display: flex;
     justify-content: space-evenly;
     align-items: stretch;
@@ -96,7 +96,7 @@ brew-chart {
     border-radius: 5px;
 }
 
-.chartSection {
+.chart-section {
     flex: 1;
     margin: 10px 10px 10px 10px;
     -webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.2);
@@ -110,7 +110,7 @@ brew-chart {
     min-height: 0;
 }
 
-.chartHeader {
+.chart-header {
     display: flex;
     align-items: center;
     border-bottom: 1px solid $chart-header-bottom-line;
@@ -121,7 +121,7 @@ brew-chart {
     color: $chart-header-label
 }
 
-.chartBody {
+.chart-body {
     padding: 10px 0 10px 10px;
     &.generalInfo {
         display: flex;
@@ -132,12 +132,12 @@ brew-chart {
     }
 }
 
-.generalInfoRow {
+.general-info-row {
     display: flex;
     padding: 10px;
 }
 
-.generalInfoCell {
+.general-info-cell {
     padding: 0 20px 0 0;
     display: flex;
     flex-direction: column;
@@ -145,7 +145,7 @@ brew-chart {
     text-align: center;
 }
 
-.generalInfoValue {
+.general-info-value {
     font-size: 16pt;
     color: $general-details-values;
 }
@@ -156,21 +156,21 @@ brew-chart {
     padding-left: 10px;
 }
 
-.headerText {
+.header-text {
     padding-bottom: 3px;
     font-size: 24pt;
     font-family: 'Roboto', sans-serif;
     color: $header-text;
 }
 
-.modalHeader {
+.modal-header {
     display: flex;
     align-items: center;
     padding-bottom: 10px;
     justify-content: center;
 }
 
-.modalHeaderText {
+.modal-header-text {
     font-size: 18pt;
     font-weight: 600;
     font-family: 'Roboto', sans-serif;
@@ -178,12 +178,12 @@ brew-chart {
     padding-right: 25px;
 }
 
-.chartIcon {
+.chart-icon {
     height: 24px;
     padding-right: 5px;
 }
 
-.menuIcon {
+.menu-icon {
     height: 32px;
     padding: 0 5px 3px 0;
     cursor: pointer;
@@ -197,7 +197,7 @@ brew-chart {
     }
 }
 
-.closeIcon {
+.close-icon {
     cursor: pointer;
     height: 24px;
     transition: 0.3s;
@@ -210,7 +210,7 @@ brew-chart {
     }
 }
 
-.chartHeaderLastValue {
+.chart-header-last-value {
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
@@ -220,7 +220,7 @@ brew-chart {
     color: $chart-header-last-value;
 }
 
-.chooseBrewList {
+.choose-brew-list {
     list-style-type: none;
     font-family: 'Roboto', sans-serif;
     font-size: 18pt;
@@ -230,7 +230,7 @@ brew-chart {
     flex-direction: column;
 }
 
-.chooseBrewListItem {
+.choose-brew-list-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -244,7 +244,7 @@ brew-chart {
     }
 }
 
-.onIndicator {
+.indicator-on {
     height: 12px;
     width: 12px;
     background-color: green;
@@ -253,7 +253,7 @@ brew-chart {
     margin-left: 20px;
 }
 
-.offIndicator {
+.indicator-off {
     height: 12px;
     width: 12px;
     background-color: gray;
@@ -262,13 +262,13 @@ brew-chart {
     margin-left: 20px;
 }
 
-.loader_small {
+.loader-small {
     display: inline-block;
     position: relative;
     width: 32px;
     height: 32px;
   }
-  .loader_small div {
+  .loader-small div {
     box-sizing: border-box;
     display: block;
     position: absolute;
@@ -280,13 +280,13 @@ brew-chart {
     animation: loader-anim 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: $loader transparent transparent transparent;
   }
-  .loader_small div:nth-child(1) {
+  .loader-small div:nth-child(1) {
     animation-delay: -0.45s;
   }
-  .loader_small div:nth-child(2) {
+  .loader-small div:nth-child(2) {
     animation-delay: -0.3s;
   }
-  .loader_small div:nth-child(3) {
+  .loader-small div:nth-child(3) {
     animation-delay: -0.15s;
   }
   @keyframes loader-anim {

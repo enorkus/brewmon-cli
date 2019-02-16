@@ -1,47 +1,47 @@
 <div [className]="chooseBrewModalClassName">
-  <div class="modalHeader">
-    <div class="modalHeaderText">CHOOSE BREW</div>
-    <img (click)="onMenuCloseClick()" class="closeIcon" src="../assets/closeIcon.png" />
+  <div class="modal-header">
+    <div class="modal-header-text">CHOOSE BREW</div>
+    <img (click)="onMenuCloseClick()" class="close-icon" src="../assets/closeIcon.png" />
   </div>
   <div class="modalBody">
-    <ul class="chooseBrewList">
-      <li (click)="onChooseBrewClick(brew)" class="chooseBrewListItem" *ngFor="let brew of allUnits">
+    <ul class="choose-brew-list">
+      <li (click)="onChooseBrewClick(brew)" class="choose-brew-list-item" *ngFor="let brew of allUnits">
         <div>{{brew && getDisplayValue(brew)}}</div>
-        <div [className]="brew.on == true ? 'onIndicator' : 'offIndicator'"></div>
+        <div [className]="brew.on == true ? 'indicator-on' : 'indicator-off'"></div>
       </li>
     </ul>
   </div>
 </div>
 <section [className]="mainContainerClassName">
   <div class="header">
-    <img (click)="onMenuOpenClick()" class="menuIcon" src="../assets/menuIcon.png" />
-    <div class="headerText">{{brew && getDisplayValue(brew)}}</div>
+    <img (click)="onMenuOpenClick()" class="menu-icon" src="../assets/menuIcon.png" />
+    <div class="header-text">{{brew && getDisplayValue(brew)}}</div>
   </div>
-  <div class="topSection">
-    <div class="topSectionStart">
-      <section id="generalInfoContainer" class="chartSection">
-        <div class="chartHeader">
-          <img class="chartIcon" src="../assets/generalIcon.png" />
+  <div class="top-section">
+    <div class="top-section-start">
+      <section id="generalInfoContainer" class="chart-section">
+        <div class="chart-header">
+          <img class="chart-icon" src="../assets/generalIcon.png" />
           <div>Details</div>
-          <div [hidden]="brew && !brew.on" class="chartHeaderLastValue" style="color: green">ON</div>
-          <div [hidden]="brew && brew.on" class="chartHeaderLastValue" style="color: gray">OFF</div>
+          <div [hidden]="brew && !brew.on" class="chart-header-last-value" style="color: green">ON</div>
+          <div [hidden]="brew && brew.on" class="chart-header-last-value" style="color: gray">OFF</div>
         </div>
-        <div class="chartBody generalInfo">
-          <div class="generalInfoRow">
-            <div class="generalInfoCell">
+        <div class="chart-body generalInfo">
+          <div class="general-info-row">
+            <div class="general-info-cell">
               <div>Alcohol by volume</div>
-              <div [hidden]="alcoholByVolumeLoading" class="generalInfoValue">{{alcoholByVolume}}</div>
-              <div [hidden]="!alcoholByVolumeLoading" class="loader_small">
+              <div [hidden]="alcoholByVolumeLoading" class="general-info-value">{{alcoholByVolume}}</div>
+              <div [hidden]="!alcoholByVolumeLoading" class="loader-small">
                 <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
               </div>
             </div>
-            <div class="generalInfoCell">
+            <div class="general-info-cell">
               <div>In fermentation</div>
-              <div [hidden]="daysInFermentationLoading" class="generalInfoValue">{{daysInFermentation}}</div>
-              <div [hidden]="!daysInFermentationLoading" class="loader_small">
+              <div [hidden]="daysInFermentationLoading" class="general-info-value">{{daysInFermentation}}</div>
+              <div [hidden]="!daysInFermentationLoading" class="loader-small">
                 <div></div>
                 <div></div>
                 <div></div>
@@ -49,31 +49,31 @@
               </div>
             </div>
           </div>
-          <div class="generalInfoRow">
-            <div class="generalInfoCell">
+          <div class="general-info-row">
+            <div class="general-info-cell">
               <div>Update interval</div>
-              <div [hidden]="updateIntervalMinsLoading" class="generalInfoValue">{{updateIntervalMins}}</div>
-              <div [hidden]="!updateIntervalMinsLoading" class="loader_small">
+              <div [hidden]="updateIntervalMinsLoading" class="general-info-value">{{updateIntervalMins}}</div>
+              <div [hidden]="!updateIntervalMinsLoading" class="loader-small">
                 <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
               </div>
             </div>
-            <div class="generalInfoCell">
+            <div class="general-info-cell">
               <div>Last update</div>
-              <div [hidden]="lastUpdatedLoading" class="generalInfoValue">{{lastUpdated}}</div>
-              <div [hidden]="!lastUpdatedLoading" class="loader_small">
+              <div [hidden]="lastUpdatedLoading" class="general-info-value">{{lastUpdated}}</div>
+              <div [hidden]="!lastUpdatedLoading" class="loader-small">
                 <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
               </div>
             </div>
-            <div class="generalInfoCell">
+            <div class="general-info-cell">
               <div>WiFi signal</div>
-              <div [hidden]="wifiSignalStrengthStatusLoading" class="generalInfoValue">{{wifiSignalStrengthStatus}}</div>
-              <div [hidden]="!wifiSignalStrengthStatusLoading" class="loader_small">
+              <div [hidden]="wifiSignalStrengthStatusLoading" class="general-info-value">{{wifiSignalStrengthStatus}}</div>
+              <div [hidden]="!wifiSignalStrengthStatusLoading" class="loader-small">
                 <div></div>
                 <div></div>
                 <div></div>
@@ -89,14 +89,14 @@
 
     </div>
 
-    <div class="topSectionEnd">
+    <div class="top-section-end">
       <brew-chart [brewName]="brewName" [dataService]="gravityService" [chartId]="'gravityChart'" [iconPath]="'../assets/gravityIcon.png'"
         [title]="'Gravity'" [height]="height" [lastValueDecimals]="4"></brew-chart>
     </div>
 
   </div>
 
-  <div class="bottomSection">
+  <div class="bottom-section">
     <brew-chart [brewName]="brewName" [dataService]="batteryService" [chartId]="'batteryChart'" [iconPath]="'../assets/batteryIcon.png'"
       [title]="'Battery'" [unit]="' V'"></brew-chart>
 

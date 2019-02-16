@@ -1,8 +1,8 @@
-<div class="chartHeader">
-  <img class="chartIcon" [src]=iconPath />
+<div class="chart-header">
+  <img class="chart-icon" [src]=iconPath />
   <div>{{title}}</div>
-  <div class="chartHeaderLastValue">{{lastValue}}</div>
+  <div class="chart-header-last-value">{{lastValue}}</div>
 </div>
-<div class="chartBody" [style.height.px]="height">
+<div class="chart-body" [style.height.px]="height">
   <canvas #canvas [id]=chartId></canvas>
 </div>
