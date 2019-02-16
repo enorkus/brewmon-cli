@@ -1,0 +1,38 @@
+@import "../../assets/colors.scss";
+
+.chartHeader {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $chart-header-bottom-line;
+    margin: 0 0 10px 0;
+    padding: 10px 0 10px 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12pt;
+    color: $chart-header-label
+}
+
+.chartIcon {
+    height: 24px;
+    padding-right: 5px;
+}
+
+.chartHeaderLastValue {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    padding-right: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    color: $chart-header-last-value;
+}
+
+.chartBody {
+    padding: 10px 0 10px 10px;
+    &.generalInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: 'Roboto', sans-serif;
+        margin-bottom: 10px;
+    }
+}

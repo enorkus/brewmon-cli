@@ -83,65 +83,28 @@
           </div>
         </div>
       </section>
-      <section class="chartSection">
-        <div class="chartHeader">
-          <img class="chartIcon" src="../assets/temperatureIcon.png" />
-          <div>Temperature</div>
-          <div class="chartHeaderLastValue">{{lastTemperature}} °C</div>
-        </div>
-        <div id="temperatureChartContainer" class="chartBody">
-          <canvas id="temperatureChart"></canvas>
-        </div>
-      </section>
+
+      <brew-chart [brewName]="brewName" [dataService]="temperatureService" [chartId]="'temperatureChart'" [iconPath]="'../assets/temperatureIcon.png'"
+        [title]="'Temperature'" [unit]="' °C'"></brew-chart>
+
     </div>
+
     <div class="topSectionEnd">
-      <section class="chartSection">
-        <div class="chartHeader">
-          <img class="chartIcon" src="../assets/gravityIcon.png" />
-          <div>Gravity</div>
-          <div class="chartHeaderLastValue">{{lastGravity}}</div>
-        </div>
-        <div class="chartBodyBig" [style.height.px]="height">
-          <canvas id="gravityChart"></canvas>
-        </div>
-      </section>
+      <brew-chart [brewName]="brewName" [dataService]="gravityService" [chartId]="'gravityChart'" [iconPath]="'../assets/gravityIcon.png'"
+        [title]="'Gravity'" [height]="height" [lastValueDecimals]="4"></brew-chart>
     </div>
+
   </div>
 
   <div class="bottomSection">
-    <section class="chartSection">
-      <div class="chartHeader">
-        <img class="chartIcon" src="../assets/batteryIcon.png" />
-        <div>Battery</div>
-        <div class="chartHeaderLastValue">{{lastBattery}} V</div>
-      </div>
-      <div class="chartBody">
-        <canvas id="batteryChart"></canvas>
-      </div>
-    </section>
+    <brew-chart [brewName]="brewName" [dataService]="batteryService" [chartId]="'batteryChart'" [iconPath]="'../assets/batteryIcon.png'"
+      [title]="'Battery'" [unit]="' V'"></brew-chart>
 
-    <section class="chartSection">
-      <div class="chartHeader">
-        <img class="chartIcon" src="../assets/wifiIcon.png" />
-        <div>RSSI</div>
-        <div class="chartHeaderLastValue">{{lastRSSI}} dBm</div>
-      </div>
-      <div class="chartBody">
-        <canvas id="rssiChart"></canvas>
-      </div>
-    </section>
+    <brew-chart [brewName]="brewName" [dataService]="rssiService" [chartId]="'rssiChart'" [iconPath]="'../assets/wifiIcon.png'"
+      [title]="'RSSI'" [unit]="' dBm'"></brew-chart>
 
-    <section class="chartSection">
-      <div class="chartHeader">
-        <img class="chartIcon" src="../assets/angleIcon.png" />
-        <div>Angle</div>
-        <div class="chartHeaderLastValue">{{lastAngle}}°</div>
-      </div>
-      <div class="chartBody">
-        <canvas id="angleChart"></canvas>
-      </div>
-    </section>
+    <brew-chart [brewName]="brewName" [dataService]="angleService" [chartId]="'angleChart'" [iconPath]="'../assets/angleIcon.png'"
+      [title]="'Angle'" [unit]="'°'"></brew-chart>
   </div>
-
 </section>
 <router-outlet></router-outlet>

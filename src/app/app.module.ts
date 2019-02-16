@@ -4,10 +4,12 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {NgxWebstorageModule} from 'ngx-webstorage';
+import { BrewChartComponent } from './brew-chart/brew-chart.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BrewChartComponent
   ],
   imports: [
     HttpClientModule,

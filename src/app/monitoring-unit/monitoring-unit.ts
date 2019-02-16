@@ -1,12 +1,9 @@
 export class MonitoringUnit {
     name: string
     on: boolean
+    lastUpdatedMillis: number
     updateIntervalMins: number
-
-
-    constructor(name: string, on: boolean, updateIntervalMins: number) {
-        this.name = name
-        this.on = on
-        this.updateIntervalMins = updateIntervalMins
-    }
+    lastRSSI: number
+    inFermentationDays: number
+    alcoholByVolume: number
 }
