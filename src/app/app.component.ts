@@ -43,8 +43,8 @@ export class AppComponent implements OnInit {
   public chooseBrewModalClassName: string = 'chooseBrewModalHidden'
   public static readonly SELECTED_BREW_KEY: string = "selectedBrew"
 
-  constructor(private monitoringUnitService: MonitoringUnitService, private batteryService: BatteryService, private angleService: AngleService,
-    private temperatureService: TemperatureService, private gravityService: GravityService, private rssiService: RSSIService, private storage: LocalStorageService) { }
+  constructor(private monitoringUnitService: MonitoringUnitService, public batteryService: BatteryService, public angleService: AngleService,
+    public temperatureService: TemperatureService, public gravityService: GravityService, public rssiService: RSSIService, private storage: LocalStorageService) { }
 
   ngOnInit() {
 
